@@ -1,0 +1,95 @@
+#technologyStack {
+    padding: 40px 20px;
+    background-color: transparent;
+    color: #fff;
+    text-align: center;
+}
+
+.techStackTitle {
+    display: inline-block; 
+    font-size: 2rem; 
+    font-weight: bold; 
+    background-color: blanchedalmond; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    text-align: center;
+    margin-bottom: 20px; 
+    color: black;
+    border: none;
+}
+
+
+.techStackGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.techStackCardLink {
+    text-decoration: none;
+    color: inherit;
+}
+
+.techStackCard {
+    background-color: #333;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.techStackCard:hover {
+    transform: scale(1.05);
+}
+
+.techStackCardImgContainer {
+    height: 60px;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.techStackCardText {
+    flex: 1; 
+}
+
+.techStackCardImg {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.techStackCardText h2 {
+    font-size: 1.25rem;
+    margin: 15px 0;
+    font-weight: bold; 
+    background-color: blanchedalmond; 
+    padding: 10px; 
+    color: black;
+    border-radius: 5px;
+    text-align: center; 
+    border: none;
+}
+
+.techStackCardText p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .techStackGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .techStackCard {
+        max-width: 100%;
+        height: auto;
+    }
+}

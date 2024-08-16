@@ -1,0 +1,136 @@
+#intro {
+    height: calc(100vh - 4rem);
+    width: 100vw;
+    max-width: 75rem;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    color: #f5f5f5;
+}
+
+.introContent {
+    height: 100%;
+    width: 100%;
+    padding: 2rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.hello {
+    font-size: 1.75rem;
+    font-weight: 100;
+    margin-bottom: 0.5rem;
+}
+
+.introName {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: blanchedalmond;
+}
+
+.introText {
+    margin-bottom: 1rem;
+}
+
+.introPara {
+    font-size: medium;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 2rem;
+}
+
+.ctaButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn {
+    background: blanchedalmond;
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    font-weight: bold;
+    color: #000000;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btnImg {
+    object-fit: cover;
+    margin-right: 0.5rem;
+    height: 1.25rem;
+}
+
+.resumeBtn {
+    background: blanchedalmond;
+    padding: 0.75rem 1.75rem;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    font-weight: bold;
+    color: #000000;
+    font-size: 1rem;
+}
+
+.resumeBtn:hover {
+    transform: scale(1.05);
+}
+
+.socialLinks {
+    margin-top: 0.25rem;
+}
+
+.socialIcon {
+    margin: 0 0.75rem;
+    color: blanchedalmond;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 840px) {
+    .introContent {
+        font-size: 2rem;
+    }
+    .hello {
+        font-size: 1.5rem;
+    }
+    .btn {
+        margin: 0.75rem 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .introContent {
+        padding: 1rem;
+    }
+    .hello {
+        font-size: 1.25rem;
+    }
+    .btn {
+        padding: 0.5rem 1.25rem;
+    }
+    .socialIcon {
+        font-size: 1rem;
+    }
+}
