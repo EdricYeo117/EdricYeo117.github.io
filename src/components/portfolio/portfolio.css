@@ -12,7 +12,7 @@
 }
 
 .portfolioTitle {
-    font-size: 3rem;
+    font-size: calc(1.5rem + 2vw);
     font-weight: 600;
     margin-bottom: 1.5rem;
 }

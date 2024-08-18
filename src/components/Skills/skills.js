@@ -35,7 +35,7 @@ const Skills = () => {
 
     return (
         <section id="skills">
-            <span className="skillTitle">Skills/Proficiencies</span>
+            <span className="skillTitle">Skillsets</span>
             <span className="skillDesc">I am a full-stack developer with experience in programming in various languages</span>
             <div className="skillBars">
                 {skills.map((skill, index) => (

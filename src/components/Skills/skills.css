@@ -11,9 +11,10 @@
 }
 
 .skillTitle {
-    font-size: 3rem;
+    font-size: calc(1.5rem + 2vw);
     font-weight: 600;
-    padding-top: 3rem;
+    padding: 0 2rem;
+    max-width: 30rem;
     margin-bottom: 1.5rem;
 }
 
