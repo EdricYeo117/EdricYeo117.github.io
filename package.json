@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
-  "homepage": "https://github.com/EdricYeo117/PortfolioWebsite",
   "version": "0.1.0",
+  "homepage": "https://EdricYeo117.github.io/portfolio",
   "private": true,
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
