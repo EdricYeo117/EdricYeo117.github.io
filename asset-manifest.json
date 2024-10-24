@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/static/css/main.0330b710.css",
-    "main.js": "/static/js/main.3279d0ba.js",
+    "main.js": "/static/js/main.77fa0a2d.js",
     "static/media/mongodb.png": "/static/media/mongodb.7106ad232c07a7bad39b.png",
     "static/media/react.png": "/static/media/react.2f2532db663fd5ec5f95.png",
     "static/media/nodejs.png": "/static/media/nodejs.290f630040630c5948b6.png",
+    "static/media/resume.pdf": "/static/media/resume.8068f1f658795196da7a.pdf",
     "static/media/java.png": "/static/media/java.4e332879122f609caa57.png",
     "static/media/html.png": "/static/media/html.fb627e76c05a9a6c7444.png",
-    "static/media/resume.pdf": "/static/media/resume.fbc32e0a5432cab5c738.pdf",
     "static/media/javascript.png": "/static/media/javascript.166865dacb77d214f485.png",
     "static/media/scrum.png": "/static/media/scrum.d5d95d341f85650d998a.png",
     "static/media/css.png": "/static/media/css.f5abc244362b5136dc0e.png",
@@ -23,10 +23,10 @@
     "static/media/instagram.png": "/static/media/instagram.0bcd1dcb7d853c327af7.png",
     "index.html": "/index.html",
     "main.0330b710.css.map": "/static/css/main.0330b710.css.map",
-    "main.3279d0ba.js.map": "/static/js/main.3279d0ba.js.map"
+    "main.77fa0a2d.js.map": "/static/js/main.77fa0a2d.js.map"
   },
   "entrypoints": [
     "static/css/main.0330b710.css",
-    "static/js/main.3279d0ba.js"
+    "static/js/main.77fa0a2d.js"
   ]
 }
