@@ -5,6 +5,7 @@ import Portfolio from './components/portfolio/portfolio';
 import TechnologyStack from './components/technologystack/technologystack';
 import Contact from './components/contact/contact';
 import Footer from './components/footer/footer';
+import './App.css';
 
 function App() {
   return (

@@ -16,33 +16,38 @@ const Portfolio = () => {
         {
             title: "Back End API for Recipes Web Application",
             description: "Final assignment for Back End Development Module in Year 2.1, a back end API utilising Spoonacular API, coded in Node.js, utilising MongoDB and SQL",
-            githubLink: "https://github.com/Koyonari/BED2024Apr_P03_T05"
+            githubLink: "https://github.com/EdricYeo117/BED2024Apr_P03_T05"
         },
         {
             title: "SQL Database Project",
             description: "Final assignment for Databases Module in Year 2.1, a database architecture for a Condo Management System, utilising SQL",
-            githubLink: "https://github.com/Ng-Kai-Huat-Jason/T03_Group1_Database"
+            githubLink: "https://github.com/EdricYeo117/T03_Group1_Database"
         },
         {
             title: "Front End Development Project",
             description: "Final assignment for front End Development Module in Year 1.2, front end website for Genshin Impact, coded in HTML, CSS and JavaScript",
-            githubLink: "https://github.com/Ng-Kai-Huat-Jason/FED_GenshinPromo_website"
+            githubLink: "https://github.com/EdricYeo117/FED_GenshinPromo_website"
         },
         {
             title: "Software Management Project",
             description: "Final assignment for Software Project Management Module in Year 2.1, utilising SCRUM Framework, coded in HTML, CSS and JavaScript",
-            githubLink: "https://github.com/LiangDingxuan/SPM_Assignment_GroupA"
+            githubLink: "https://github.com/EdricYeo117/SPM_Assignment_GroupA"
         },
         {
             title: "Software Analysis and Design Project",
             description: "Final assignment for Software Analysis and Design Module in Year 2.1, utilising Visual Paradigm, coded in C#",
-            githubLink: "https://github.com/Ng-Kai-Huat-Jason/SWAD_P03_GroupE"
+            githubLink: "https://github.com/EdricYeo117/SWAD_P03_GroupE_Classes"
         },
         {
             title: "Mobile Applications Development Project",
             description: "Final assignment for Mobile Applications Development  Module in Year 2.1, utilising Android Studio, coded in Java",
-            githubLink: "https://github.com/enjiawu/MAD24_P02_Team1"
+            githubLink: "https://github.com/EdricYeo117/MAD24_P02_Team1/tree/main"
         },
+        {
+            title: "Cloud-Based Advertisment Management System",
+            description: "Final assignment for Full-Stack Development Module in Year 2.2, utilising AWS DynamoDB, React.js, Express.js and Node.js",
+            githubLink: "https://github.com/EdricYeo117/BannerBites_FSDIT03"
+        }
 
     ];
 
