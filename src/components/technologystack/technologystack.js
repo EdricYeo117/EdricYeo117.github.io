@@ -12,6 +12,7 @@ import CPlusPlusLogo from '../../assets/cplusplus.png';
 import JavaScriptLogo from '../../assets/javascript.png';
 import HtmlLogo from '../../assets/html.png';
 import CssLogo from '../../assets/css.png';
+import dynamoDBLogo from '../../assets/dynamoDB.png';
 
 export const technologyStack = [
     {
@@ -51,6 +52,12 @@ export const technologyStack = [
         link: "https://docs.mongodb.com/"
     },
     {
+        name: "DynamoDB",
+        description: "A fully managed proprietary NoSQL database service that supports key-value and document data structures.",
+        logo: dynamoDBLogo,
+        link: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html"
+    },
+    {
         name: "SQL",
         description: "A domain-specific language used in programming for managing data in a relational database.",
         logo: SqlLogo,
@@ -69,6 +76,12 @@ export const technologyStack = [
         link: "https://docs.microsoft.com/en-us/dotnet/csharp/"
     },
     {
+        name: "C++",
+        description: "A general-purpose programming language created as an extension of C. Currently learning for Year 2.2.",
+        logo: CPlusPlusLogo,
+        link: "https://cplusplus.com/doc/tutorial/"
+    },
+    {
         name: "Java",
         description: "A high-level, class-based, object-oriented programming language.",
         logo: JavaLogo,
@@ -79,12 +92,6 @@ export const technologyStack = [
         description: "The official integrated development environment (IDE) for Android development.",
         logo: AndroidStudioLogo,
         link: "https://developer.android.com/studio"
-    },
-    {
-        name: "C++",
-        description: "A general-purpose programming language created as an extension of C. Currently learning for Year 2.2.",
-        logo: CPlusPlusLogo,
-        link: "https://cplusplus.com/doc/tutorial/"
     },
 ];
 

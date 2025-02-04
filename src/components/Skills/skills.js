@@ -9,7 +9,7 @@ const Skills = () => {
     const skills = [
         {
             title: "Front End Development",
-            description: "Proficient in HTML & CSS, utilizing React.js framework",
+            description: "Proficient in HTML & Tailwind CSS, utilizing React.js framework",
             image: FrontEnd,
             alt: "Front End Dev"
         },
@@ -21,7 +21,7 @@ const Skills = () => {
         },
         {
             title: "NoSQL and SQL Databases",
-            description: "Proficient in MSSQL and MongoDB",
+            description: "Proficient in MSSQL, MongoDB and Amazon DynamoDB",
             image: Database,
             alt: "Databases (NoSQL & SQL)"
         },
