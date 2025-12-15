@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import resumePdf from "../../assets/resume.pdf"; 
+import resumePdf from "../../assets/resume.pdf";
 
 const NAV_OFFSET = 96;
 
@@ -24,7 +24,6 @@ export default function Navbar() {
 
     const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
     window.scrollTo({ top, behavior: "smooth" });
-
     history.replaceState(null, "", `#${id}`);
   };
 
@@ -43,10 +42,7 @@ export default function Navbar() {
 
         if (visible?.target?.id) setActiveId(visible.target.id);
       },
-      {
-        rootMargin: `-${NAV_OFFSET}px 0px -60% 0px`,
-        threshold: 0,
-      }
+      { rootMargin: `-${NAV_OFFSET}px 0px -60% 0px`, threshold: 0 }
     );
 
     els.forEach((el) => io.observe(el));
@@ -64,17 +60,17 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-4 rounded-2xl border border-white/15 bg-white/5 backdrop-blur-xl">
+        <div className="mt-4 card-glass">
           <div className="flex items-center justify-between px-4 py-3">
             <button
               onClick={() => goTo("home")}
-              className="text-sm font-semibold tracking-tight text-white"
+              className="text-sm font-semibold tracking-tight text-white focus-ring"
               aria-label="Go to top"
             >
               Edric Yeo Portfolio Website
             </button>
 
-            <nav className="hidden items-center gap-1 md:flex">
+            <nav className="hidden items-center gap-2 md:flex">
               {LINKS.slice(1).map((l) => {
                 const isActive = activeId === l.id;
                 return (
@@ -82,10 +78,8 @@ export default function Navbar() {
                     key={l.id}
                     onClick={() => goTo(l.id)}
                     className={[
-                      "rounded-xl px-3 py-2 text-sm transition",
-                      isActive
-                        ? "bg-white/10 text-white"
-                        : "text-white/70 hover:bg-white/10 hover:text-white",
+                      "nav-pill focus-ring",
+                      isActive ? "nav-pill-active" : "",
                     ].join(" ")}
                   >
                     {l.label}
@@ -93,16 +87,13 @@ export default function Navbar() {
                 );
               })}
 
-              <a
-                href="/resume.pdf"
-                className="ml-2 rounded-xl bg-white px-4 py-2 text-sm font-medium text-neutral-950 hover:opacity-90"
-              >
+              <a href={resumePdf} download className="ml-2 btn-white focus-ring">
                 Resume
               </a>
             </nav>
 
             <button
-              className="md:hidden rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10"
+              className="md:hidden rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10 focus-ring"
               onClick={() => setOpen((v) => !v)}
               aria-label="Toggle menu"
               aria-expanded={open}
@@ -121,10 +112,8 @@ export default function Navbar() {
                       key={l.id}
                       onClick={() => goTo(l.id)}
                       className={[
-                        "rounded-xl px-3 py-2 text-left text-sm transition",
-                        isActive
-                          ? "bg-white/10 text-white"
-                          : "text-white/80 hover:bg-white/10 hover:text-white",
+                        "nav-pill text-left focus-ring",
+                        isActive ? "nav-pill-active" : "",
                       ].join(" ")}
                     >
                       {l.label}
@@ -132,10 +121,7 @@ export default function Navbar() {
                   );
                 })}
 
-                <a
-                  href="/resume.pdf"
-                  className="mt-2 rounded-xl bg-white px-4 py-2 text-center text-sm font-medium text-neutral-950"
-                >
+                <a href={resumePdf} download className="mt-2 btn-white focus-ring text-center">
                   Resume
                 </a>
               </div>

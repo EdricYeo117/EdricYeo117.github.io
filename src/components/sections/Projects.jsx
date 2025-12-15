@@ -3,24 +3,15 @@ import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
 import { projects } from "../../data/projects";
 
-function Badge({ children }) {
-  return (
-    <span className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
-      {children}
-    </span>
-  );
+function Badge({ children, accent }) {
+  return <span className={accent ? "chip chip-accent" : "chip"}>{children}</span>;
 }
 
 function FilterPill({ active, children, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={[
-        "rounded-full px-4 py-2 text-sm transition border",
-        active
-          ? "border-white/20 bg-white/10 text-white"
-          : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white",
-      ].join(" ")}
+      className={["nav-pill focus-ring", active ? "nav-pill-active" : ""].join(" ")}
     >
       {children}
     </button>
@@ -90,19 +81,26 @@ export default function Projects() {
             return (
               <div
                 key={key}
-                className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/10"
+                className={[
+                  "group relative overflow-hidden p-6",
+                  "card-glass card-hover",
+                  // accent edge on hover (Ocean Mist)
+                  "hover:border-[rgb(var(--accent))/0.35]",
+                ].join(" ")}
               >
+                {/* subtle hover glow */}
                 <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
-                  <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
+                  <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[rgb(var(--accent))/0.18] blur-3xl" />
                 </div>
 
                 <div className="relative flex flex-col">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <h3 className="text-lg font-semibold leading-snug">{p.title}</h3>
+
                       {p.type && (
                         <div className="mt-2">
-                          <Badge>{p.type}</Badge>
+                          <Badge accent>{p.type}</Badge>
                         </div>
                       )}
                     </div>
@@ -111,7 +109,13 @@ export default function Projects() {
                       href={p.githubLink}
                       target="_blank"
                       rel="noreferrer"
-                      className="shrink-0 rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-sm text-white/70 hover:bg-white/10 hover:text-white"
+                      className={[
+                        "shrink-0 rounded-xl px-2 py-1 text-sm",
+                        "border border-white/10 bg-white/5 text-white/70 transition",
+                        "hover:bg-white/10 hover:text-white",
+                        // accent ring on focus
+                        "focus-ring",
+                      ].join(" ")}
                       aria-label="Open GitHub"
                     >
                       ↗
@@ -132,7 +136,7 @@ export default function Projects() {
                   {hasLongDesc && (
                     <button
                       onClick={() => toggleExpand(key)}
-                      className="mt-2 w-fit text-sm text-white/70 hover:text-white"
+                      className="mt-2 w-fit text-sm text-white/70 transition hover:text-white focus-ring rounded-md"
                     >
                       {isExpanded ? "Show less" : "Read more"}
                     </button>
@@ -152,7 +156,7 @@ export default function Projects() {
                       href={p.githubLink}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-sm text-white/70 hover:text-white"
+                      className="text-sm text-white/70 transition hover:text-white focus-ring rounded-md"
                     >
                       View on GitHub →
                     </a>

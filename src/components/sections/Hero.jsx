@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
 import profileImg from "../../assets/profile.png";
+import { hero } from "../../data/hero"; // NEW
 
 function useTypewriter(text, { speed = 70, startDelay = 150 } = {}) {
   const [value, setValue] = useState("");
@@ -27,16 +28,45 @@ function useTypewriter(text, { speed = 70, startDelay = 150 } = {}) {
   return value;
 }
 
-const FOCUS = [
-  "AI systems orchestration (TTS, RAG, pipelines)",
-  "ERP document ingestion workflows (n8n + DB upserts)",
-  "React dashboards for Vendor / PO / Invoice insights",
-];
+function CTAButton({ href, variant = "primary", children }) {
+  const cls =
+    variant === "secondary"
+      ? "btn-secondary focus-ring"
+      : "btn-primary focus-ring";
+  return (
+    <a href={href} className={cls}>
+      {children}
+    </a>
+  );
+}
 
 export default function Hero() {
-  const fullName = "Edric Yeo";
-  const typed = useTypewriter(fullName, { speed: 70, startDelay: 150 });
-  const typingDurationMs = useMemo(() => fullName.length * 70 + 150, [fullName]);
+  const typed = useTypewriter(hero.name, { speed: 70, startDelay: 150 });
+  const typingDurationMs = useMemo(
+    () => hero.name.length * 70 + 150,
+    [hero.name]
+  );
+
+  // Subtle cursor-follow tilt for avatar
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 120, damping: 18, mass: 0.3 });
+  const sy = useSpring(my, { stiffness: 120, damping: 18, mass: 0.3 });
+  const rotateY = useTransform(sx, [-0.5, 0.5], [-8, 8]);
+  const rotateX = useTransform(sy, [-0.5, 0.5], [8, -8]);
+
+  const onAvatarMove = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    mx.set(px);
+    my.set(py);
+  };
+
+  const onAvatarLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
 
   return (
     <RevealSection id="home" className="scroll-mt-28 pt-28 pb-14 sm:pt-32">
@@ -45,9 +75,7 @@ export default function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
           {/* LEFT */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
-              Cloud • AI • Full-stack
-            </div>
+            <div className="chip chip-accent">{hero.tagline}</div>
 
             <h1 className="mt-5 min-h-[1.1em] text-5xl font-semibold tracking-tight sm:text-6xl">
               <span className="bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
@@ -56,7 +84,7 @@ export default function Hero() {
               <span
                 className={[
                   "ml-1 inline-block h-[0.95em] w-[2px] align-[-0.1em] bg-white/70",
-                  typed.length >= fullName.length ? "opacity-0" : "animate-pulse",
+                  typed.length >= hero.name.length ? "opacity-0" : "animate-pulse",
                 ].join(" ")}
               />
             </h1>
@@ -70,7 +98,7 @@ export default function Hero() {
               }}
               className="mt-3 max-w-xl text-white/70"
             >
-              Cloud Engineering Intern @ Oracle. Building AI-driven systems and enterprise workflows.
+              {hero.subtitle}
             </motion.p>
 
             <motion.div
@@ -82,64 +110,73 @@ export default function Hero() {
               }}
               className="mt-7 flex flex-wrap gap-3"
             >
-              <a
-                href="#projects"
-                className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-neutral-950 hover:opacity-90"
-              >
-                View Projects
-              </a>
-              <a
-                href="#contact"
-                className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-medium hover:bg-white/10"
-              >
-                Contact
-              </a>
+              {hero.ctas.map((c) => (
+                <CTAButton key={c.href} href={c.href} variant={c.variant}>
+                  {c.label}
+                </CTAButton>
+              ))}
             </motion.div>
           </div>
 
-          {/* RIGHT: Avatar card */}
+          {/* RIGHT: Avatar */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.45 }}
             className="flex justify-center lg:justify-end"
           >
-            <div className="w-full max-w-sm rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl">
-              <div className="relative mx-auto h-56 w-56">
-                <div className="pointer-events-none absolute -inset-6 rounded-full bg-white/10 blur-3xl" />
-                <div className="relative h-full w-full overflow-hidden rounded-full border border-white/20 bg-white/5 ring-2 ring-white/10">
+            <div className="relative">
+              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-full bg-[rgb(var(--accent))/0.18] blur-3xl" />
+              <div className="pointer-events-none absolute -inset-16 -z-10 rounded-full bg-[rgb(var(--accent2))/0.12] blur-3xl" />
+
+              <motion.div
+                onMouseMove={onAvatarMove}
+                onMouseLeave={onAvatarLeave}
+                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+                className="relative"
+              >
+                <div className="h-44 w-44 overflow-hidden rounded-full shadow-[0_22px_90px_rgba(0,0,0,0.55)] sm:h-52 sm:w-52 lg:h-60 lg:w-60">
                   <img
                     src={profileImg}
-                    alt="Edric Yeo"
-                    className="h-full w-full object-cover object-[50%_22%] scale-105"
+                    alt={hero.name}
+                    className="h-full w-full object-cover"
+                    style={{ objectPosition: "50% 22%" }}
                     loading="lazy"
                   />
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="mt-5 text-center">
-                <div className="text-sm font-medium text-white/90">
-                  Cloud • AI • Full-stack
+              <div className="mt-4 text-center">
+                <div className="text-sm font-semibold text-white/90">
+                  {hero.tagline}
                 </div>
-                <div className="mt-1 text-xs text-white/60">Based in Singapore</div>
+                <div className="mt-1 text-xs text-white/60">{hero.location}</div>
               </div>
             </div>
           </motion.div>
         </div>
 
-        {/* CURRENTLY FOCUSED (lighter, aligned) */}
-        <div className="mt-10 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl">
-          <div className="flex items-center justify-between">
-            <p className="text-sm font-medium text-white/80">Currently focused on</p>
+        {/* FOCUS (data-driven) */}
+        <div className="mt-10">
+          <div className="flex items-center gap-3">
+            <p className="text-sm font-medium text-white/80">
+              {hero.focus.title}
+            </p>
+            <div className="h-px flex-1 bg-[rgb(var(--accent))/0.22]" />
           </div>
 
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FOCUS.map((item) => (
+            {hero.focus.items.map((it) => (
               <div
-                key={item}
-                className="rounded-2xl border border-white/10 bg-white/5 p-4 text-sm text-white/80"
+                key={it.id}
+                className={[
+                  "rounded-2xl p-4 text-sm text-white/80 backdrop-blur",
+                  "bg-white/5 border border-white/10",
+                  "hover:border-[rgb(var(--accent))/0.35] transition",
+                ].join(" ")}
               >
-                {item}
+                <div className="font-medium text-white/90">{it.title}</div>
+                {it.detail && <div className="mt-1 text-white/65">{it.detail}</div>}
               </div>
             ))}
           </div>

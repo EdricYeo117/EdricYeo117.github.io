@@ -4,6 +4,31 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 96px; /* adjust if needed */
 }
+/* ===== Theme tokens (Combined Ocean Mist + Arctic Chill) =====
+Ocean Mist:
+  #4A90E2 (accent)   -> 74 144 226
+  #B7D8E6 (mist)     -> 183 216 230
+  #264653 (deep)     -> 38 70 83
+
+Arctic Chill:
+  #4B97C9 (accent2)  -> 75 151 201
+  #D0E8F2 (ice)      -> 208 232 242
+  #1B4965 (navy)     -> 27 73 101
+*/
+:root {
+  --accent: 74 144 226;   /* Ocean Mist primary */
+  --accent2: 75 151 201;  /* Arctic Chill secondary */
+  --mist: 183 216 230;    /* soft highlight */
+  --ice: 208 232 242;     /* very soft highlight */
+  --deep: 38 70 83;       /* deep slate */
+  --navy: 27 73 101;      /* deep navy */
+}
+
+/* Selection polish */
+::selection {
+  background: rgb(var(--accent) / 0.35);
+  color: white;
+}
 
 /* Simple line clamp utilities (no Tailwind plugin needed) */
 .line-clamp-3 {
@@ -11,4 +36,78 @@ html {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@layer components {
+  /* Glass card base */
+  .card-glass {
+    @apply rounded-3xl border border-white/15 bg-white/5 backdrop-blur-xl;
+  }
+
+  /* Hover depth + accent edge */
+  .card-hover {
+    @apply transition hover:-translate-y-1 hover:bg-white/10;
+  }
+
+  /* Small chips / tags */
+  .chip {
+    @apply rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80;
+  }
+
+  /* Accent chip (for type tags etc.) */
+  .chip-accent {
+    border-color: rgb(var(--accent) / 0.35);
+    background: rgb(var(--accent) / 0.10);
+    color: rgb(255 255 255 / 0.92);
+  }
+
+  /* Navbar pills */
+  .nav-pill {
+    @apply rounded-full border px-4 py-2 text-sm transition;
+    border-color: rgb(255 255 255 / 0.10);
+    background: rgb(255 255 255 / 0.04);
+    color: rgb(255 255 255 / 0.70);
+  }
+  .nav-pill:hover {
+    background: rgb(255 255 255 / 0.08);
+    color: rgb(255 255 255 / 0.90);
+  }
+  .nav-pill-active {
+    border-color: rgb(var(--accent) / 0.45);
+    background: rgb(var(--accent) / 0.16);
+    color: rgb(255 255 255 / 0.95);
+  }
+
+  /* Buttons */
+  .btn-primary {
+    @apply rounded-2xl px-5 py-3 text-sm font-medium text-white transition;
+    background: rgb(var(--accent));
+  }
+  .btn-primary:hover {
+    opacity: 0.92;
+  }
+
+  .btn-secondary {
+    @apply rounded-2xl px-5 py-3 text-sm font-medium text-white transition;
+    border: 1px solid rgb(var(--accent) / 0.35);
+    background: rgb(255 255 255 / 0.04);
+  }
+  .btn-secondary:hover {
+    background: rgb(var(--accent) / 0.10);
+    border-color: rgb(var(--accent) / 0.55);
+  }
+
+  .btn-white {
+    @apply rounded-xl bg-white px-4 py-2 text-sm font-medium text-neutral-950 transition;
+  }
+  .btn-white:hover {
+    opacity: 0.92;
+  }
+
+  /* Focus visibility */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: rgb(var(--accent));
+    --tw-ring-offset-color: rgb(0 0 0 / 0.6);
+  }
 }
