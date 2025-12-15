@@ -1,7 +1,7 @@
+import { useMemo, useState } from "react";
 import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
 import { projects } from "../../data/projects";
-import { motion } from "framer-motion";
 
 function Badge({ children }) {
   return (
@@ -11,68 +11,157 @@ function Badge({ children }) {
   );
 }
 
+function FilterPill({ active, children, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={[
+        "rounded-full px-4 py-2 text-sm transition border",
+        active
+          ? "border-white/20 bg-white/10 text-white"
+          : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white",
+      ].join(" ")}
+    >
+      {children}
+    </button>
+  );
+}
+
+function typeOrder(t) {
+  if (t === "School") return 1;
+  if (t === "Internship") return 2;
+  if (t === "Personal") return 3;
+  return 99;
+}
+
 export default function Projects() {
   const list = Array.isArray(projects) ? projects : [];
+
+  const types = useMemo(() => {
+    const set = new Set(list.map((p) => p.type).filter(Boolean));
+    return ["All", ...Array.from(set).sort((a, b) => typeOrder(a) - typeOrder(b))];
+  }, [list]);
+
+  const [activeType, setActiveType] = useState("All");
+  const [expanded, setExpanded] = useState(() => new Set());
+
+  const filtered = useMemo(() => {
+    if (activeType === "All") return list;
+    return list.filter((p) => p.type === activeType);
+  }, [list, activeType]);
+
+  const toggleExpand = (key) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
 
   return (
     <RevealSection id="projects" className="scroll-mt-28 py-16">
       <Container>
-        <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
-        <p className="mt-2 text-white/70">
-          A selection of projects across full-stack, mobile, cloud, and database work.
-        </p>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
+            <p className="mt-2 text-white/70">
+              A selection of projects across full-stack, mobile, cloud, and database work.
+            </p>
+          </div>
 
-        <motion.div
-          initial="hide"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.12 }}
-          variants={{
-            hide: {},
-            show: { transition: { staggerChildren: 0.06 } },
-          }}
-          className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {list.map((p) => (
-            <motion.a
-              key={p.title}
-              href={p.githubLink}
-              target="_blank"
-              rel="noreferrer"
-              variants={{
-                hide: { opacity: 0, y: 14 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
-              }}
-              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/10"
-            >
-              <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
-                <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-              </div>
+          {/* Filter */}
+          <div className="flex flex-wrap gap-2">
+            {types.map((t) => (
+              <FilterPill key={t} active={activeType === t} onClick={() => setActiveType(t)}>
+                {t}
+              </FilterPill>
+            ))}
+          </div>
+        </div>
 
-              <div className="relative">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-lg font-semibold leading-snug">{p.title}</h3>
-                  <span className="shrink-0 text-sm text-white/60 group-hover:text-white">
-                    ↗
-                  </span>
+        {/* More spacing between header and grid */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map((p) => {
+            const key = `${p.title}-${p.githubLink}`;
+            const isExpanded = expanded.has(key);
+            const hasLongDesc = (p.description ?? "").length > 120;
+
+            return (
+              <div
+                key={key}
+                className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:bg-white/10"
+              >
+                <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
+                  <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
                 </div>
 
-                <p className="mt-2 text-sm text-white/70">{p.description}</p>
+                <div className="relative flex flex-col">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-semibold leading-snug">{p.title}</h3>
+                      {p.type && (
+                        <div className="mt-2">
+                          <Badge>{p.type}</Badge>
+                        </div>
+                      )}
+                    </div>
 
-                {(p.stack ?? []).length > 0 && (
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {(p.stack ?? []).slice(0, 6).map((t) => (
-                      <Badge key={t}>{t}</Badge>
-                    ))}
+                    <a
+                      href={p.githubLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="shrink-0 rounded-xl border border-white/10 bg-white/5 px-2 py-1 text-sm text-white/70 hover:bg-white/10 hover:text-white"
+                      aria-label="Open GitHub"
+                    >
+                      ↗
+                    </a>
                   </div>
-                )}
 
-                <div className="mt-6 text-sm text-white/70 group-hover:text-white">
-                  View on GitHub →
+                  {/* Description: 2–3 lines by default */}
+                  <p
+                    className={[
+                      "mt-3 text-sm text-white/70",
+                      isExpanded ? "" : "line-clamp-3",
+                    ].join(" ")}
+                  >
+                    {p.description}
+                  </p>
+
+                  {/* Read more */}
+                  {hasLongDesc && (
+                    <button
+                      onClick={() => toggleExpand(key)}
+                      className="mt-2 w-fit text-sm text-white/70 hover:text-white"
+                    >
+                      {isExpanded ? "Show less" : "Read more"}
+                    </button>
+                  )}
+
+                  {/* Stack */}
+                  {(p.stack ?? []).length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {(p.stack ?? []).slice(0, 6).map((t) => (
+                        <Badge key={`${key}-${t}`}>{t}</Badge>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="mt-6">
+                    <a
+                      href={p.githubLink}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-sm text-white/70 hover:text-white"
+                    >
+                      View on GitHub →
+                    </a>
+                  </div>
                 </div>
               </div>
-            </motion.a>
-          ))}
-        </motion.div>
+            );
+          })}
+        </div>
       </Container>
     </RevealSection>
   );

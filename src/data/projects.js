@@ -34,7 +34,7 @@ export const projects = [
   {
     title: "Front End Development Project",
     description:
-      "Final assignment for front End Development Module in Year 1.2, front end website for Genshin Impact, coded in HTML, CSS and JavaScript",
+      "Final assignment for Front End Development Module in Year 1.2, front end website for Genshin Impact, coded in HTML, CSS and JavaScript",
     githubLink: "https://github.com/EdricYeo117/FED_GenshinPromo_website",
     stack: ["HTML", "CSS", "JavaScript"],
     type: "School",
@@ -64,11 +64,15 @@ export const projects = [
     type: "School",
   },
   {
-    title: "Cloud-Based Advertisment Management System",
+    title: "Cloud-Based Advertisement Management System",
     description:
       "Final assignment for Full-Stack Development Module in Year 2.2, utilising AWS DynamoDB, React.js, Express.js and Node.js",
     githubLink: "https://github.com/EdricYeo117/BannerBites_FSDIT03",
     stack: ["React", "Node.js", "Express", "DynamoDB", "AWS"],
     type: "School",
   },
+
+  // Add these later when ready:
+  // { title: "...", description: "...", githubLink: "...", stack: [...], type: "Internship" },
+  // { title: "...", description: "...", githubLink: "...", stack: [...], type: "Personal" },
 ];

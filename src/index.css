@@ -5,3 +5,10 @@ html {
   scroll-padding-top: 96px; /* adjust if needed */
 }
 
+/* Simple line clamp utilities (no Tailwind plugin needed) */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
