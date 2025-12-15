@@ -1,170 +1,146 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
-import { projects } from "../../data/projects";
+import ProjectCard from "./ProjectCard";
+import { projects as allProjects } from "../../data/projects";
 
-function Badge({ children, accent }) {
-  return <span className={accent ? "chip chip-accent" : "chip"}>{children}</span>;
-}
+const TYPES = ["All", "School", "Internship", "Personal"];
 
-function FilterPill({ active, children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className={["nav-pill focus-ring", active ? "nav-pill-active" : ""].join(" ")}
-    >
-      {children}
-    </button>
-  );
-}
+const CARD_W = 360;
+const CARD_H = 420;
+const IMG_H = 180;
 
-function typeOrder(t) {
-  if (t === "School") return 1;
-  if (t === "Internship") return 2;
-  if (t === "Personal") return 3;
-  return 99;
+const PAGE_SIZE = 6; // 2 rows x 3 cols
+
+function sortFeaturedFirst(list) {
+  // featured first, then priority ascending, then title
+  return [...list].sort((a, b) => {
+    const af = a.featured ? 1 : 0;
+    const bf = b.featured ? 1 : 0;
+    if (af !== bf) return bf - af;
+
+    const ap = a.priority ?? 999;
+    const bp = b.priority ?? 999;
+    if (ap !== bp) return ap - bp;
+
+    return (a.title || "").localeCompare(b.title || "");
+  });
 }
 
 export default function Projects() {
-  const list = Array.isArray(projects) ? projects : [];
-
-  const types = useMemo(() => {
-    const set = new Set(list.map((p) => p.type).filter(Boolean));
-    return ["All", ...Array.from(set).sort((a, b) => typeOrder(a) - typeOrder(b))];
-  }, [list]);
-
   const [activeType, setActiveType] = useState("All");
-  const [expanded, setExpanded] = useState(() => new Set());
+  const [page, setPage] = useState(1);
 
-  const filtered = useMemo(() => {
-    if (activeType === "All") return list;
-    return list.filter((p) => p.type === activeType);
-  }, [list, activeType]);
+  const filteredSorted = useMemo(() => {
+    const base =
+      activeType === "All"
+        ? allProjects
+        : allProjects.filter((p) => p.type === activeType);
 
-  const toggleExpand = (key) => {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) next.delete(key);
-      else next.add(key);
-      return next;
-    });
+    return sortFeaturedFirst(base);
+  }, [activeType]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredSorted.length / PAGE_SIZE));
+
+  const pageItems = useMemo(() => {
+    const safePage = Math.min(page, totalPages);
+    const start = (safePage - 1) * PAGE_SIZE;
+    return filteredSorted.slice(start, start + PAGE_SIZE);
+  }, [filteredSorted, page, totalPages]);
+
+  // Reset to page 1 when filter changes
+  const onSetType = (t) => {
+    setActiveType(t);
+    setPage(1);
   };
 
+  const canPrev = page > 1;
+  const canNext = page < totalPages;
+
   return (
-    <RevealSection id="projects" className="scroll-mt-28 py-16">
+    <RevealSection id="projects" className="py-20" once>
       <Container>
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
-            <p className="mt-2 text-white/70">
-              A selection of projects across full-stack, mobile, cloud, and database work.
+            <h2 className="text-3xl font-semibold text-white/90">Projects</h2>
+            <p className="mt-2 text-sm text-white/65">
+              Featured projects are highlighted and shown first.
             </p>
           </div>
 
-          {/* Filter */}
           <div className="flex flex-wrap gap-2">
-            {types.map((t) => (
-              <FilterPill key={t} active={activeType === t} onClick={() => setActiveType(t)}>
+            {TYPES.map((t) => (
+              <button
+                key={t}
+                type="button"
+                onClick={() => onSetType(t)}
+                className={[
+                  "focus-ring px-4 py-2 rounded-xl text-sm font-medium transition",
+                  t === activeType
+                    ? "bg-white/10 border border-white/15 text-white"
+                    : "border border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white",
+                ].join(" ")}
+              >
                 {t}
-              </FilterPill>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* More spacing between header and grid */}
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((p) => {
-            const key = `${p.title}-${p.githubLink}`;
-            const isExpanded = expanded.has(key);
-            const hasLongDesc = (p.description ?? "").length > 120;
+        <div className="mt-8 flex items-center justify-between gap-4">
+          <div className="text-sm font-semibold text-white/80">
+            {activeType} ({filteredSorted.length})
+          </div>
 
-            return (
-              <div
-                key={key}
-                className={[
-                  "group relative overflow-hidden p-6",
-                  "card-glass card-hover",
-                  // accent edge on hover (Ocean Mist)
-                  "hover:border-[rgb(var(--accent))/0.35]",
-                ].join(" ")}
-              >
-                {/* subtle hover glow */}
-                <div className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100">
-                  <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-[rgb(var(--accent))/0.18] blur-3xl" />
-                </div>
+          <div className="flex items-center gap-3">
+            <div className="text-xs text-white/55">
+              Page {page} / {totalPages}
+            </div>
 
-                <div className="relative flex flex-col">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <h3 className="text-lg font-semibold leading-snug">{p.title}</h3>
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={!canPrev}
+              className={[
+                "focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border transition",
+                canPrev
+                  ? "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
+                  : "border-white/5 bg-white/3 text-white/30 cursor-not-allowed",
+              ].join(" ")}
+              aria-label="Previous page"
+            >
+              ←
+            </button>
 
-                      {p.type && (
-                        <div className="mt-2">
-                          <Badge accent>{p.type}</Badge>
-                        </div>
-                      )}
-                    </div>
+            <button
+              type="button"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={!canNext}
+              className={[
+                "focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border transition",
+                canNext
+                  ? "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
+                  : "border-white/5 bg-white/3 text-white/30 cursor-not-allowed",
+              ].join(" ")}
+              aria-label="Next page"
+            >
+              →
+            </button>
+          </div>
+        </div>
 
-                    <a
-                      href={p.githubLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={[
-                        "shrink-0 rounded-xl px-2 py-1 text-sm",
-                        "border border-white/10 bg-white/5 text-white/70 transition",
-                        "hover:bg-white/10 hover:text-white",
-                        // accent ring on focus
-                        "focus-ring",
-                      ].join(" ")}
-                      aria-label="Open GitHub"
-                    >
-                      ↗
-                    </a>
-                  </div>
-
-                  {/* Description: 2–3 lines by default */}
-                  <p
-                    className={[
-                      "mt-3 text-sm text-white/70",
-                      isExpanded ? "" : "line-clamp-3",
-                    ].join(" ")}
-                  >
-                    {p.description}
-                  </p>
-
-                  {/* Read more */}
-                  {hasLongDesc && (
-                    <button
-                      onClick={() => toggleExpand(key)}
-                      className="mt-2 w-fit text-sm text-white/70 transition hover:text-white focus-ring rounded-md"
-                    >
-                      {isExpanded ? "Show less" : "Read more"}
-                    </button>
-                  )}
-
-                  {/* Stack */}
-                  {(p.stack ?? []).length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {(p.stack ?? []).slice(0, 6).map((t) => (
-                        <Badge key={`${key}-${t}`}>{t}</Badge>
-                      ))}
-                    </div>
-                  )}
-
-                  <div className="mt-6">
-                    <a
-                      href={p.githubLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-sm text-white/70 transition hover:text-white focus-ring rounded-md"
-                    >
-                      View on GitHub →
-                    </a>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+        {/* Fixed 2 rows x 3 columns */}
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {pageItems.map((p) => (
+            <div key={p.key || p.title} className="flex justify-center">
+              <ProjectCard
+                project={p}
+                cardW={CARD_W}
+                cardH={CARD_H}
+                imgH={IMG_H}
+              />
+            </div>
+          ))}
         </div>
       </Container>
     </RevealSection>

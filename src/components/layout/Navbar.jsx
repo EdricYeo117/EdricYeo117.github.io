@@ -1,129 +1,131 @@
-import { useEffect, useState } from "react";
-import resumePdf from "../../assets/resume.pdf";
-
-const NAV_OFFSET = 96;
-
-const LINKS = [
-  { id: "home", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "skills", label: "Skillsets" },
-  { id: "tech", label: "Tech Stack" },
-  { id: "contact", label: "Contact" },
-];
+import { useEffect, useMemo, useState } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [activeId, setActiveId] = useState("home");
 
+  const LINKS = useMemo(
+    () => [
+      { id: "home", label: "Home" },
+      { id: "about", label: "About" },
+      { id: "projects", label: "Projects" },
+      { id: "skills", label: "Skills" },
+      { id: "tech", label: "Tech Stack" },
+      { id: "contact", label: "Contact" },
+    ],
+    []
+  );
+
   const goTo = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
-
     setOpen(false);
-
-    const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+    const top = el.getBoundingClientRect().top + window.scrollY - 96;
     window.scrollTo({ top, behavior: "smooth" });
-    history.replaceState(null, "", `#${id}`);
   };
 
+  // Active section observer
   useEffect(() => {
-    const els = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean);
-    if (els.length === 0) return;
+    const ids = LINKS.map((l) => l.id);
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    if (!els.length) return;
 
     const io = new IntersectionObserver(
       (entries) => {
+        // pick the most visible intersecting section
         const visible = entries
           .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) =>
-              Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top)
-          )[0];
+          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
 
         if (visible?.target?.id) setActiveId(visible.target.id);
       },
-      { rootMargin: `-${NAV_OFFSET}px 0px -60% 0px`, threshold: 0 }
+      {
+        root: null,
+        threshold: [0.25, 0.35, 0.5, 0.65],
+        rootMargin: "-25% 0px -55% 0px", // compensates navbar height + feel
+      }
     );
 
     els.forEach((el) => io.observe(el));
     return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth >= 768) setOpen(false);
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
+  }, [LINKS]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mt-4 card-glass">
-          <div className="flex items-center justify-between px-4 py-3">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        <div className="mt-6 rounded-2xl border border-white/10 bg-black/40 backdrop-blur-xl shadow-2xl">
+          <div className="flex items-center justify-between px-6 py-4">
             <button
               onClick={() => goTo("home")}
-              className="text-sm font-semibold tracking-tight text-white focus-ring"
-              aria-label="Go to top"
+              className="text-base font-bold tracking-tight text-white hover:text-[rgb(var(--mist))] transition-colors"
             >
-              Edric Yeo Portfolio Website
+              Edric Yeo
             </button>
 
             <nav className="hidden items-center gap-2 md:flex">
-              {LINKS.slice(1).map((l) => {
-                const isActive = activeId === l.id;
-                return (
-                  <button
-                    key={l.id}
-                    onClick={() => goTo(l.id)}
-                    className={[
-                      "nav-pill focus-ring",
-                      isActive ? "nav-pill-active" : "",
-                    ].join(" ")}
-                  >
-                    {l.label}
-                  </button>
-                );
-              })}
+              {LINKS.slice(1).map((l) => (
+                <button
+                  key={l.id}
+                  onClick={() => goTo(l.id)}
+                  className={[
+                    "px-4 py-2 rounded-xl text-sm font-medium transition-all focus-ring",
+                    activeId === l.id
+                      ? "border border-white/10"
+                      : "text-white/70 hover:text-white hover:bg-white/5",
+                  ].join(" ")}
+                  style={
+                    activeId === l.id
+                      ? {
+                          background: "rgb(var(--accent) / 0.16)",
+                          borderColor: "rgb(var(--accent) / 0.35)",
+                          color: "rgb(255 255 255 / 0.95)",
+                        }
+                      : undefined
+                  }
+                >
+                  {l.label}
+                </button>
+              ))}
 
-              <a href={resumePdf} download className="ml-2 btn-white focus-ring">
+              <a
+                href="/resume.pdf"
+                className="ml-2 px-5 py-2 rounded-xl text-white font-medium text-sm transition-all focus-ring"
+                style={{
+                  background: "linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent2)))",
+                }}
+              >
                 Resume
               </a>
             </nav>
 
             <button
-              className="md:hidden rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white/80 hover:bg-white/10 focus-ring"
+              className="md:hidden rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 hover:bg-white/10 focus-ring"
               onClick={() => setOpen((v) => !v)}
-              aria-label="Toggle menu"
-              aria-expanded={open}
             >
               Menu
             </button>
           </div>
 
           {open && (
-            <div className="border-t border-white/10 px-3 py-3 md:hidden">
-              <div className="flex flex-col gap-1">
-                {LINKS.slice(1).map((l) => {
-                  const isActive = activeId === l.id;
-                  return (
-                    <button
-                      key={l.id}
-                      onClick={() => goTo(l.id)}
-                      className={[
-                        "nav-pill text-left focus-ring",
-                        isActive ? "nav-pill-active" : "",
-                      ].join(" ")}
-                    >
-                      {l.label}
-                    </button>
-                  );
-                })}
-
-                <a href={resumePdf} download className="mt-2 btn-white focus-ring text-center">
-                  Resume
-                </a>
+            <div className="border-t border-white/10 px-4 py-4 md:hidden">
+              <div className="flex flex-col gap-2">
+                {LINKS.slice(1).map((l) => (
+                  <button
+                    key={l.id}
+                    onClick={() => goTo(l.id)}
+                    className={[
+                      "px-4 py-2 rounded-xl text-left text-sm font-medium transition-all focus-ring",
+                      activeId === l.id ? "text-white" : "text-white/70 hover:bg-white/5",
+                    ].join(" ")}
+                    style={
+                      activeId === l.id
+                        ? { background: "rgb(var(--accent) / 0.16)", border: "1px solid rgb(var(--accent) / 0.35)" }
+                        : undefined
+                    }
+                  >
+                    {l.label}
+                  </button>
+                ))}
               </div>
             </div>
           )}

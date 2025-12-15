@@ -18,7 +18,7 @@ export const skills = [
   },
   {
     title: "NoSQL and SQL Databases",
-    description: "Proficient in MSSQL, MongoDB and Amazon DynamoDB",
+    description: "Proficient in MSSQL, MongoDB, Amazon DynamoDB and Oracle ADB",
     image: Database,
     alt: "Databases (NoSQL & SQL)",
   },
