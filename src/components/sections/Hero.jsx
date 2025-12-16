@@ -1,4 +1,3 @@
-// src/components/sections/Hero.jsx
 import { useEffect, useMemo, useState } from "react";
 import {
   motion,
@@ -110,11 +109,11 @@ export default function Hero() {
   return (
     <RevealSection id="home" className="scroll-mt-28 pt-28 pb-12 sm:pt-32" once>
       <Container>
-        {/* No min-h-screen to avoid big empty gap */}
         <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           {/* LEFT */}
           <div>
-            <span className="chip chip-accent">Cloud • AI • Full-stack</span>
+            {/* Keep this once only (removed from right caption) */}
+            {/* <span className="chip chip-accent">Cloud • AI • Full-stack</span> */}
 
             <h1 className="mt-5 min-h-[1.1em] text-5xl font-semibold tracking-tight sm:text-6xl">
               <span className="bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
@@ -194,42 +193,41 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT: no halo */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              <motion.div
-                onMouseMove={onAvatarMove}
-                onMouseLeave={onAvatarLeave}
-                style={
-                  prefersReduced
-                    ? undefined
-                    : { rotateX, rotateY, transformStyle: "preserve-3d" }
-                }
-              >
-                <div className="h-44 w-44 overflow-hidden rounded-full shadow-[0_22px_90px_rgba(0,0,0,0.55)] sm:h-52 sm:w-52 lg:h-60 lg:w-60">
-                  <img
-                    src={profileImg}
-                    alt="Edric Yeo"
-                    className="h-full w-full object-cover"
-                    style={{ objectPosition: "50% 22%" }}
-                    loading="lazy"
-                  />
-                </div>
-              </motion.div>
+          {/* RIGHT */}
+<motion.div
+  initial={{ opacity: 0, y: 14 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.45 }}
+  className="flex justify-center lg:justify-center lg:pr-10"
+>
+  <div className="relative flex flex-col items-center">
+    <motion.div
+      onMouseMove={onAvatarMove}
+      onMouseLeave={onAvatarLeave}
+      style={
+        prefersReduced
+          ? undefined
+          : { rotateX, rotateY, transformStyle: "preserve-3d" }
+      }
+    >
+      <div className="h-44 w-44 overflow-hidden rounded-full shadow-[0_22px_90px_rgba(0,0,0,0.55)] ring-1 ring-white/10 sm:h-52 sm:w-52 lg:h-60 lg:w-60">
+        <img
+          src={profileImg}
+          alt="Edric Yeo"
+          className="h-full w-full object-cover object-[48%_16%]"
+          loading="lazy"
+        />
+      </div>
+    </motion.div>
 
-              <div className="mt-4 text-center">
-                <div className="text-sm font-semibold text-white/90">
-                  Cloud • AI • Full-stack
-                </div>
-                <div className="mt-1 text-xs text-white/60">Singapore</div>
-              </div>
-            </div>
-          </motion.div>
+    <div className="mt-4 text-center">
+      <div className="text-sm font-semibold text-white/90">
+        Cloud • AI • Full-stack
+      </div>
+      <div className="mt-1 text-xs text-white/60">Based in Singapore</div>
+    </div>
+  </div>
+</motion.div>
         </div>
       </Container>
     </RevealSection>
