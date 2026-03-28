@@ -1,16 +1,34 @@
-# React + Vite
+# Edric Yeo Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website built with React, Vite, Tailwind CSS, and Framer Motion.
 
-Currently, two official plugins are available:
+This site showcases my work across cloud engineering, applied AI, full-stack development, and interactive technical systems, including projects such as the Interactive AI Hologram, AI-enabled drone workflows, and full-stack web platforms.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Site
 
-## React Compiler
+Portfolio: [Add deployed URL here]
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Highlights
 
-## Expanding the ESLint configuration
+- Interactive and responsive personal portfolio
+- Featured project cards with outcomes, stack, and case-study style summaries
+- Sections covering about, projects, skills, tech stack, and contact
+- Built to present internship, project, and engineering experience clearly
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+
+## Project Structure
+
+```bash
+src/
+  components/
+    layout/
+    motion/
+    sections/
+  data/
+  assets/

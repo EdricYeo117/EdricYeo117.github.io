@@ -1,31 +1,51 @@
 import FrontEnd from "../assets/frontend.png";
 import BackEnd from "../assets/backend.png";
 import Database from "../assets/database-storage.png";
+import CloudAI from "../assets/cloud-computing.png";
+import MobileCV from "../assets/computer-vision.png";
 import Scrum from "../assets/scrum.png";
 
 export const skills = [
   {
-    title: "Front End Development",
-    description: "Proficient in HTML & Tailwind CSS, utilizing React.js framework",
+    title: "Frontend Engineering",
+    description:
+      "Build responsive user interfaces with React, JavaScript, HTML, CSS, and Tailwind CSS, with a focus on polished presentation and user experience.",
     image: FrontEnd,
-    alt: "Front End Dev",
+    alt: "Frontend Engineering",
   },
   {
-    title: "Back End Development",
-    description: "Proficient in Node.js for Back End Web-APIs and Database Queries",
+    title: "Backend & API Development",
+    description:
+      "Develop backend services, REST APIs, orchestration flows, and system integrations using Node.js, Express, Python, and FastAPI.",
     image: BackEnd,
-    alt: "Back End Dev",
+    alt: "Backend and API Development",
   },
   {
-    title: "NoSQL and SQL Databases",
-    description: "Proficient in MSSQL, MongoDB, Amazon DynamoDB and Oracle ADB",
+    title: "Databases & Data Systems",
+    description:
+      "Work across relational and NoSQL data platforms including SQL, MongoDB, DynamoDB, Firebase, and Oracle Autonomous Database.",
     image: Database,
-    alt: "Databases (NoSQL & SQL)",
+    alt: "Databases and Data Systems",
   },
   {
-    title: "SCRUM Master",
-    description: "PSM1 Professional Scrum Master",
+    title: "Cloud & Applied AI Systems",
+    description:
+      "Build cloud-connected systems and applied AI workflows spanning Oracle Cloud, AWS, automation pipelines, and enterprise-facing showcase solutions.",
+    image: CloudAI,
+    alt: "Cloud and Applied AI Systems",
+  },
+  {
+    title: "Mobile, Drone & Computer Vision",
+    description:
+      "Develop Android and Kotlin-based workflows tied to hardware systems, including DJI-integrated applications and computer vision features.",
+    image: MobileCV,
+    alt: "Mobile Drone and Computer Vision",
+  },
+  {
+    title: "Agile Delivery",
+    description:
+      "Certified Professional Scrum Master I with experience collaborating across project delivery, iteration planning, and technical execution.",
     image: Scrum,
-    alt: "AGILE Framework",
+    alt: "Agile and Scrum",
   },
 ];

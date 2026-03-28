@@ -2,14 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
-  useReducedMotion,
 } from "framer-motion";
 import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
-import profileImg from "../../assets/profile.png";
-import { focusAreas } from "../../data/focus";
+import profileImg from "../../assets/profile.jpg";
 
 function useTypewriter(text, { speed = 70, startDelay = 150 } = {}) {
   const [value, setValue] = useState("");
@@ -17,6 +16,7 @@ function useTypewriter(text, { speed = 70, startDelay = 150 } = {}) {
   useEffect(() => {
     let i = 0;
     let intervalId;
+
     const timeoutId = setTimeout(() => {
       intervalId = setInterval(() => {
         i += 1;
@@ -34,44 +34,61 @@ function useTypewriter(text, { speed = 70, startDelay = 150 } = {}) {
   return value;
 }
 
+const focusAreas = [
+  {
+    key: "cloud-ai",
+    title: "Cloud + AI Systems",
+    subtitle: "Production-minded applied AI and backend orchestration",
+    details: [
+      "Built enterprise-facing demo systems combining cloud services, AI workflows, and frontend experiences",
+      "Worked across backend services, integration layers, event flows, and user-facing delivery",
+      "Interested in scalable applied AI rather than isolated prototypes",
+    ],
+  },
+  {
+    key: "hologram",
+    title: "Interactive AI Hologram",
+    subtitle: "LLM, TTS, orchestration, and real-time presentation systems",
+    details: [
+      "Built an interactive AI hologram showcase during my Oracle internship",
+      "Worked on live conversational flows, system orchestration, and showcase reliability",
+      "Designed for real demos and customer engagements, not just offline experiments",
+    ],
+  },
+  {
+    key: "drone-cv",
+    title: "Drone + Computer Vision",
+    subtitle: "Android, DJI SDK, remote control workflows, and CV pipelines",
+    details: [
+      "Developed Kotlin-based Android features for AI-enabled drone demos",
+      "Integrated remotely callable drone workflows and computer vision functions",
+      "Worked on practical CV capabilities like pose estimation and fire or smoke detection",
+    ],
+  },
+];
+
 function FocusCard({ item, open, onToggle }) {
   return (
     <button
       type="button"
       onClick={onToggle}
-      className="card-glass card-hover p-5 text-left focus-ring"
-      style={{ borderColor: open ? "rgb(var(--accent) / 0.35)" : undefined }}
+      className="w-full rounded-2xl border border-white/10 bg-white/5 p-4 text-left transition hover:bg-white/8 focus-ring"
     >
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <div className="text-sm font-semibold text-white/90">
-            {item.title}
-          </div>
-          <div className="mt-1 text-xs text-white/60">{item.subtitle}</div>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <div className="text-sm font-semibold text-white">{item.title}</div>
+          <div className="mt-1 text-sm text-white/60">{item.subtitle}</div>
         </div>
-        <div className="text-white/60">{open ? "–" : "+"}</div>
+        <div className="text-xl leading-none text-white/60">{open ? "–" : "+"}</div>
       </div>
 
-      <div
-        className={[
-          "grid transition-[grid-template-rows,opacity,margin-top] duration-300 ease-out",
-          open
-            ? "grid-rows-[1fr] opacity-100 mt-3"
-            : "grid-rows-[0fr] opacity-0 mt-0",
-        ].join(" ")}
-      >
-        <div className="overflow-hidden">
-          <ul className="space-y-1.5 text-xs text-white/70">
-            {item.details.map((d) => (
-              <li key={d}>• {d}</li>
-            ))}
-          </ul>
-          <div
-            className="mt-3 h-1 w-12 rounded-full"
-            style={{ background: "rgb(var(--accent) / 0.85)" }}
-          />
-        </div>
-      </div>
+      {open ? (
+        <ul className="mt-4 space-y-2 text-sm text-white/75">
+          {item.details.map((d) => (
+            <li key={d}>• {d}</li>
+          ))}
+        </ul>
+      ) : null}
     </button>
   );
 }
@@ -83,9 +100,8 @@ export default function Hero() {
     () => fullName.length * 70 + 150,
     [fullName]
   );
-  const prefersReduced = useReducedMotion();
 
-  // Avatar tilt (kept subtle via smaller degrees + gentler spring)
+  const prefersReduced = useReducedMotion();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 90, damping: 22, mass: 0.35 });
@@ -99,137 +115,136 @@ export default function Hero() {
     mx.set((e.clientX - r.left) / r.width - 0.5);
     my.set((e.clientY - r.top) / r.height - 0.5);
   };
+
   const onAvatarLeave = () => {
     mx.set(0);
     my.set(0);
   };
 
-  const [openKey, setOpenKey] = useState(null);
+  const [openKey, setOpenKey] = useState("cloud-ai");
 
   return (
-    <RevealSection id="home" className="scroll-mt-28 pt-28 pb-12 sm:pt-32" once>
+    <section id="home" className="relative pt-28 pb-18 sm:pt-32 sm:pb-24">
       <Container>
-        <div className="grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          {/* LEFT */}
-          <div>
-            {/* Keep this once only (removed from right caption) */}
-            {/* <span className="chip chip-accent">Cloud • AI • Full-stack</span> */}
-
-            <h1 className="mt-5 min-h-[1.1em] text-5xl font-semibold tracking-tight sm:text-6xl">
-              <span className="bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-                {typed}
-              </span>
-              <span
-                className={[
-                  "ml-1 inline-block h-[0.95em] w-[2px] align-[-0.1em]",
-                  typed.length >= fullName.length
-                    ? "opacity-0"
-                    : "animate-pulse",
-                ].join(" ")}
-                style={{ background: "rgb(var(--accent) / 0.85)" }}
-              />
-            </h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.4,
-                delay: (typingDurationMs + 120) / 1000,
-              }}
-              className="mt-4 max-w-xl text-white/70"
-            >
-              Building cloud and AI-driven applications with enterprise-grade
-              solutions. Focused on reliable systems, clean interfaces, and
-              practical automation.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.35,
-                delay: (typingDurationMs + 240) / 1000,
-              }}
-              className="mt-7 flex flex-wrap gap-3"
-            >
-              <a href="#projects" className="btn-primary focus-ring">
-                View Projects
-              </a>
-              <a href="#contact" className="btn-secondary focus-ring">
-                Contact Me
-              </a>
-            </motion.div>
-
-            {/* Current Focus */}
-            <div className="mt-10">
-              <div className="flex items-center gap-3">
-                <p className="text-sm font-medium text-white/80">
-                  Current Focus
-                </p>
-                <div
-                  className="h-px flex-1"
-                  style={{ background: "rgb(var(--accent) / 0.22)" }}
-                />
+        <RevealSection>
+          <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <div className="mb-4 inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium uppercase tracking-[0.2em] text-white/65">
+                Cloud Engineering • AI • Full-Stack Systems
               </div>
 
-              <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {focusAreas.map((item) => {
-                  const open = openKey === item.key;
-                  return (
-                    <FocusCard
-                      key={item.key}
-                      item={item}
-                      open={open}
-                      onToggle={() =>
-                        setOpenKey((prev) =>
-                          prev === item.key ? null : item.key
-                        )
-                      }
-                    />
-                  );
-                })}
+              <h1 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                {typed}
+                <span
+                  className={[
+                    "ml-1 inline-block h-[1em] w-[2px] align-[-0.1em]",
+                    typed.length < fullName.length ? "opacity-100" : "animate-pulse",
+                  ].join(" ")}
+                  style={{ background: "rgb(var(--accent) / 0.85)" }}
+                />
+              </h1>
+
+              <p className="mt-5 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
+                I build applied AI, cloud, and full-stack systems that are meant to
+                be used in the real world. My work spans interactive showcase systems,
+                backend orchestration, enterprise-facing AI demos, and drone-based
+                computer vision workflows.
+              </p>
+
+              <p className="mt-4 max-w-2xl text-base leading-8 text-white/60">
+                Most recently, I built the Interactive AI Hologram during my Oracle
+                Cloud Engineering internship, contributed to AI-enabled drone
+                capabilities using Android and computer vision, and developed systems
+                across Java, Python, React, Node.js, AWS, and Oracle Cloud.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href="#projects"
+                  className="focus-ring inline-flex items-center rounded-2xl border border-white/10 bg-white px-5 py-3 text-sm font-semibold text-slate-900 transition hover:translate-y-[-1px]"
+                >
+                  View Featured Work
+                </a>
+
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="focus-ring inline-flex items-center rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Resume
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/yeo-jin-rong/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="focus-ring inline-flex items-center rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  LinkedIn
+                </a>
+
+                <a
+                  href="#contact"
+                  className="focus-ring inline-flex items-center rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                >
+                  Contact Me
+                </a>
+              </div>
+
+              <div className="mt-10">
+                <div className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-white/50">
+                  Current Focus
+                </div>
+
+                <div className="grid gap-3">
+                  {focusAreas.map((item) => {
+                    const open = openKey === item.key;
+                    return (
+                      <FocusCard
+                        key={item.key}
+                        item={item}
+                        open={open}
+                        onToggle={() =>
+                          setOpenKey((prev) => (prev === item.key ? null : item.key))
+                        }
+                      />
+                    );
+                  })}
+                </div>
               </div>
             </div>
+
+            <div className="flex justify-center lg:justify-end">
+              <motion.div
+                onMouseMove={onAvatarMove}
+                onMouseLeave={onAvatarLeave}
+                style={prefersReduced ? undefined : { rotateX, rotateY }}
+                transition={{ duration: typingDurationMs / 1000 }}
+                className="relative w-full max-w-[360px]"
+              >
+                <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-2xl backdrop-blur-xl">
+                  <img
+                    src={profileImg}
+                    alt="Edric Yeo"
+                    className="aspect-[4/5] w-full rounded-[1.5rem] object-cover"
+                  />
+
+                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="text-sm font-semibold text-white">
+                      Based in Singapore
+                    </div>
+                    <div className="mt-2 text-sm leading-7 text-white/65">
+                      Cloud engineering, applied AI, backend systems, showcase
+                      technology, and real-world technical delivery.
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
-
-          {/* RIGHT */}
-<motion.div
-  initial={{ opacity: 0, y: 14 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.45 }}
-  className="flex justify-center lg:justify-center lg:pr-10"
->
-  <div className="relative flex flex-col items-center">
-    <motion.div
-      onMouseMove={onAvatarMove}
-      onMouseLeave={onAvatarLeave}
-      style={
-        prefersReduced
-          ? undefined
-          : { rotateX, rotateY, transformStyle: "preserve-3d" }
-      }
-    >
-      <div className="h-44 w-44 overflow-hidden rounded-full shadow-[0_22px_90px_rgba(0,0,0,0.55)] ring-1 ring-white/10 sm:h-52 sm:w-52 lg:h-60 lg:w-60">
-        <img
-          src={profileImg}
-          alt="Edric Yeo"
-          className="h-full w-full object-cover object-[48%_16%]"
-          loading="lazy"
-        />
-      </div>
-    </motion.div>
-
-    <div className="mt-4 text-center">
-      <div className="text-sm font-semibold text-white/90">
-        Cloud • AI • Full-stack
-      </div>
-      <div className="mt-1 text-xs text-white/60">Based in Singapore</div>
-    </div>
-  </div>
-</motion.div>
-        </div>
+        </RevealSection>
       </Container>
-    </RevealSection>
+    </section>
   );
 }
