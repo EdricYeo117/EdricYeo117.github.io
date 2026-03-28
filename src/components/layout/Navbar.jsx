@@ -13,7 +13,7 @@ export default function Navbar() {
       { id: "tech", label: "Tech Stack" },
       { id: "contact", label: "Contact" },
     ],
-    []
+    [],
   );
 
   const goTo = (id) => {
@@ -26,29 +26,47 @@ export default function Navbar() {
 
   useEffect(() => {
     const ids = LINKS.map((l) => l.id);
-    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    if (!els.length) return;
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0)
-          )[0];
+    if (!sections.length) return;
 
-        if (visible?.target?.id) setActiveId(visible.target.id);
-      },
-      {
-        root: null,
-        threshold: [0.25, 0.35, 0.5, 0.65],
-        rootMargin: "-25% 0px -55% 0px",
+    let ticking = false;
+
+    const updateActiveSection = () => {
+      const navOffset = 120;
+      const scrollPosition = window.scrollY + navOffset;
+
+      let current = ids[0];
+
+      for (const section of sections) {
+        if (section.offsetTop <= scrollPosition) {
+          current = section.id;
+        }
       }
-    );
 
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [LINKS]);
+      setActiveId((prev) => (prev === current ? prev : current));
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveSection);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    updateActiveSection();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -93,6 +111,8 @@ export default function Navbar() {
 
               <a
                 href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
                 className="ml-2 px-5 py-2 rounded-xl text-white font-medium text-sm leading-none transition-all focus-ring"
                 style={{
                   background:

@@ -19,8 +19,16 @@ function groupItems(items) {
 
 function Logo({ name, logo }) {
   if (logo) {
-    return <img src={logo} alt={name} className="h-8 w-8 object-contain" loading="lazy" />;
+    return (
+      <img
+        src={logo}
+        alt={name}
+        className="h-8 w-8 object-contain"
+        loading="lazy"
+      />
+    );
   }
+
   return (
     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs font-semibold text-white/80">
       {name?.[0]?.toUpperCase() ?? "?"}
@@ -32,14 +40,18 @@ export default function TechStack() {
   const groups = groupItems(Array.isArray(technologyStack) ? technologyStack : []);
 
   return (
-    <RevealSection id="tech" className="scroll-mt-28 py-16">
+    <RevealSection id="tech" className="relative z-10 pt-24 pb-32">
       <Container>
-        <h2 className="text-2xl font-semibold tracking-tight">Technology Stack</h2>
-        <p className="mt-2 text-white/70">Tools and technologies I frequently use across projects.</p>
+        <div className="mb-10">
+          <h2 className="text-2xl font-semibold tracking-tight">Technology Stack</h2>
+          <p className="mt-2 text-white/70">
+            Tools and technologies I frequently use across projects.
+          </p>
+        </div>
 
-        <div className="mt-10 space-y-10">
+        <div className="space-y-12">
           {groups.map(([groupName, items]) => (
-            <section key={groupName}>
+            <section key={groupName} className="relative">
               <h3 className="text-sm font-semibold tracking-wide text-white/80">
                 {groupName}
               </h3>
@@ -53,12 +65,16 @@ export default function TechStack() {
                     rel="noopener noreferrer"
                     className="card-glass card-hover group p-6 focus-ring"
                     style={{ transition: "border-color 200ms ease" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgb(var(--accent) / 0.35)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.borderColor = "")}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "rgb(var(--accent) / 0.35)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "";
+                    }}
                   >
                     <div className="flex gap-4">
                       <div
-                        className="flex h-14 w-14 items-center justify-center rounded-2xl border"
+                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border"
                         style={{
                           borderColor: "rgb(var(--accent) / 0.25)",
                           background: "rgb(var(--ice) / 0.08)",
@@ -69,7 +85,9 @@ export default function TechStack() {
 
                       <div className="min-w-0">
                         <h4 className="text-lg font-semibold">{tech.name}</h4>
-                        <p className="mt-1 text-sm text-white/70">{tech.description}</p>
+                        <p className="mt-1 text-sm leading-7 text-white/70">
+                          {tech.description}
+                        </p>
                         <div
                           className="mt-3 text-sm transition"
                           style={{ color: "rgb(var(--mist) / 0.85)" }}

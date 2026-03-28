@@ -58,7 +58,7 @@ export default function Projects() {
   const canNext = page < totalPages;
 
   return (
-    <RevealSection id="projects" className="py-20" once>
+    <RevealSection id="projects" className="pt-24">
       <Container>
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>

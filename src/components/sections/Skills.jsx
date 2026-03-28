@@ -4,7 +4,7 @@ import { skills } from "../../data/skills";
 
 export default function Skills() {
   return (
-    <RevealSection id="skills" className="scroll-mt-28 py-16">
+ <RevealSection id="skills" className="pt-24">
       <Container>
         <h2 className="text-2xl font-semibold tracking-tight">Skillsets</h2>
         <p className="mt-2 text-white/70">
