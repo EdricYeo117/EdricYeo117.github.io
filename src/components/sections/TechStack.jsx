@@ -37,69 +37,70 @@ function Logo({ name, logo }) {
 }
 
 export default function TechStack() {
-  const groups = groupItems(Array.isArray(technologyStack) ? technologyStack : []);
+  const groups = groupItems(
+    Array.isArray(technologyStack) ? technologyStack : [],
+  );
 
   return (
     <RevealSection id="tech" className="relative z-10 pt-24 pb-32">
       <Container>
         <div className="mb-10">
-          <h2 className="text-2xl font-semibold tracking-tight">Technology Stack</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Technology Stack
+          </h2>
           <p className="mt-2 text-white/70">
             Tools and technologies I frequently use across projects.
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-8">
           {groups.map(([groupName, items]) => (
-            <section key={groupName} className="relative">
-              <h3 className="text-sm font-semibold tracking-wide text-white/80">
-                {groupName}
-              </h3>
+            <div key={groupName} className="space-y-4">
+              <h3 className="text-xl font-semibold text-white">{groupName}</h3>
 
-              <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {items.map((tech) => (
                   <a
                     key={tech.name}
                     href={tech.link}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className="card-glass card-hover group p-6 focus-ring"
-                    style={{ transition: "border-color 200ms ease" }}
+                    rel="noreferrer"
+                    className="card-glass flex items-start gap-4 rounded-3xl p-4 transition hover:-translate-y-1 hover:bg-white/10"
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = "rgb(var(--accent) / 0.35)";
+                      e.currentTarget.style.borderColor =
+                        "rgb(var(--accent) / 0.35)";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.borderColor = "";
                     }}
                   >
-                    <div className="flex gap-4">
-                      <div
-                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border"
-                        style={{
-                          borderColor: "rgb(var(--accent) / 0.25)",
-                          background: "rgb(var(--ice) / 0.08)",
-                        }}
-                      >
-                        <Logo name={tech.name} logo={tech.logo} />
-                      </div>
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/8">
+                      {tech.logo ? (
+                        <img
+                          src={tech.logo}
+                          alt={tech.name}
+                          className="h-8 w-8 object-contain"
+                        />
+                      ) : (
+                        <span className="text-sm font-semibold text-white">
+                          {tech.name?.[0]?.toUpperCase() ?? "?"}
+                        </span>
+                      )}
+                    </div>
 
-                      <div className="min-w-0">
-                        <h4 className="text-lg font-semibold">{tech.name}</h4>
-                        <p className="mt-1 text-sm leading-7 text-white/70">
-                          {tech.description}
-                        </p>
-                        <div
-                          className="mt-3 text-sm transition"
-                          style={{ color: "rgb(var(--mist) / 0.85)" }}
-                        >
-                          Learn more →
-                        </div>
+                    <div className="min-w-0">
+                      <div className="font-medium text-white">{tech.name}</div>
+                      <div className="mt-1 text-sm leading-6 text-white/70">
+                        {tech.description}
+                      </div>
+                      <div className="mt-2 text-sm text-[rgb(var(--mist))]">
+                        Learn more →
                       </div>
                     </div>
                   </a>
                 ))}
               </div>
-            </section>
+            </div>
           ))}
         </div>
       </Container>

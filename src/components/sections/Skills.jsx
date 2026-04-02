@@ -4,36 +4,37 @@ import { skills } from "../../data/skills";
 
 export default function Skills() {
   return (
- <RevealSection id="skills" className="pt-24">
+    <RevealSection id="skills" className="pt-24">
       <Container>
         <h2 className="text-2xl font-semibold tracking-tight">Skillsets</h2>
         <p className="mt-2 text-white/70">
-          Full-stack developer with experience across multiple languages and platforms.
+          Full-stack developer with experience across multiple languages and
+          platforms.
         </p>
 
-        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {skills.map((s) => (
             <div
               key={s.title}
-              className="card-glass card-hover flex items-center gap-4 p-6"
-              style={{ transition: "border-color 200ms ease" }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgb(var(--accent) / 0.35)")}
+              className="card-glass rounded-3xl p-5 sm:p-6"
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.borderColor =
+                  "rgb(var(--accent) / 0.35)")
+              }
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "")}
             >
-              <div
-                className="flex h-14 w-14 items-center justify-center overflow-hidden rounded-2xl border"
-                style={{
-                  borderColor: "rgb(var(--accent) / 0.25)",
-                  background: "rgb(var(--accent2) / 0.10)",
-                }}
-              >
-                <img src={s.image} alt={s.alt} className="h-9 w-9 object-contain" />
-              </div>
+              {s.image ? (
+                <img
+                  src={s.image}
+                  alt={s.alt || s.title}
+                  className="mb-4 h-12 w-12 object-contain"
+                />
+              ) : null}
 
-              <div className="min-w-0">
-                <h3 className="text-lg font-semibold">{s.title}</h3>
-                <p className="mt-1 text-sm text-white/70">{s.description}</p>
-              </div>
+              <h3 className="text-lg font-semibold text-white">{s.title}</h3>
+              <p className="mt-3 text-sm leading-7 text-white/75">
+                {s.description}
+              </p>
             </div>
           ))}
         </div>

@@ -20,6 +20,32 @@ html, body, #root {
   color: white;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+section {
+  width: 100%;
+}
+
+@media (max-width: 639px) {
+  h1,
+  h2,
+  h3 {
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
 ::selection {
   background: rgb(var(--accent) / 0.35);
   color: white;

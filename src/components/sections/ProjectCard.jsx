@@ -12,11 +12,13 @@ function FeaturedBadge() {
 function LinkButton({ href, children, primary = false }) {
   if (!href) return null;
 
+  const isAnchor = href.startsWith("#");
+
   return (
     <a
       href={href}
-      target={href.startsWith("#") ? undefined : "_blank"}
-      rel={href.startsWith("#") ? undefined : "noreferrer"}
+      target={isAnchor ? undefined : "_blank"}
+      rel={isAnchor ? undefined : "noreferrer"}
       className={[
         "focus-ring inline-flex items-center justify-center rounded-xl px-3 py-2 text-xs font-semibold transition",
         primary
@@ -29,12 +31,7 @@ function LinkButton({ href, children, primary = false }) {
   );
 }
 
-export default function ProjectCard({
-  project,
-  cardW = 360,
-  cardH = 600,
-  imgH = 200,
-}) {
+export default function ProjectCard({ project }) {
   const p = project;
   const [imgError, setImgError] = useState(false);
 
@@ -81,13 +78,12 @@ export default function ProjectCard({
   return (
     <motion.article
       layout
-      className="group h-full overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl"
-      style={{ width: cardW, minHeight: cardH }}
+      className="group flex h-full w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.22 }}
     >
       <div className="relative overflow-hidden border-b border-white/8">
-        <div style={{ height: imgH }}>
+        <div className="aspect-video w-full">
           {selectedImage && !imgError ? (
             <button
               type="button"
@@ -127,7 +123,7 @@ export default function ProjectCard({
 
               return (
                 <button
-                  key={`${p.key}-thumb-${index}`}
+                  key={`${p.key || p.title}-thumb-${index}`}
                   type="button"
                   onClick={() => {
                     setImgError(false);
@@ -156,7 +152,7 @@ export default function ProjectCard({
         ) : null}
       </div>
 
-      <div className="flex flex-col p-5">
+      <div className="flex flex-grow flex-col p-5">
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center rounded-full border border-[rgb(var(--accent)/0.35)] bg-[rgb(var(--accent)/0.12)] px-2.5 py-1 text-[11px] font-medium text-white/90">
