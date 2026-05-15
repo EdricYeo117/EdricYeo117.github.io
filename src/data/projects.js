@@ -76,7 +76,7 @@ export const projects = [
       writeup: "",
     },
     media: {
-      cover: "/assets/projects/drone-cv/cover.png",
+      cover: null ,
       gallery: [
         "/assets/projects/drone-cv/1.png",
         "/assets/projects/drone-cv/2.png",

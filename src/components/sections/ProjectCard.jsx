@@ -1,235 +1,158 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 function FeaturedBadge() {
   return (
-    <span className="inline-flex items-center rounded-full border border-amber-300/20 bg-amber-300/10 px-2.5 py-1 text-[11px] font-semibold text-amber-200">
+    <span className="inline-flex items-center rounded-full border border-yellow-300/25 bg-yellow-300/10 px-3 py-1 text-xs font-semibold text-yellow-200">
       ★ Featured
     </span>
   );
 }
 
-function LinkButton({ href, children, primary = false }) {
-  if (!href) return null;
-
-  const isAnchor = href.startsWith("#");
-
+function TypeBadge({ type }) {
   return (
-    <a
-      href={href}
-      target={isAnchor ? undefined : "_blank"}
-      rel={isAnchor ? undefined : "noreferrer"}
-      className={[
-        "focus-ring inline-flex items-center justify-center rounded-xl px-3 py-2 text-xs font-semibold transition",
-        primary
-          ? "border border-white/10 bg-white text-slate-900 hover:translate-y-[-1px]"
-          : "border border-white/10 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white",
-      ].join(" ")}
-    >
-      {children}
-    </a>
+    <span className="inline-flex items-center rounded-full border border-sky-300/25 bg-sky-300/10 px-3 py-1 text-xs font-semibold text-sky-100">
+      {type}
+    </span>
   );
 }
 
-export default function ProjectCard({ project }) {
+function ProjectImage({ project, imgH }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  const cover = project.media?.cover;
+  const alt = project.media?.alt || `${project.title} preview`;
+
+  if (!cover || imageFailed) {
+    return (
+      <div
+        className="w-full border-b border-white/10 bg-white/[0.025]"
+        style={{ height: imgH }}
+        aria-hidden="true"
+      />
+    );
+  }
+
+  return (
+    <div
+      className="relative overflow-hidden border-b border-white/10 bg-black/20"
+      style={{ height: imgH }}
+    >
+      <img
+        src={cover}
+        alt={alt}
+        className="h-full w-full object-contain p-2 transition duration-500 group-hover:scale-[1.02]"
+        loading="lazy"
+        onError={() => setImageFailed(true)}
+      />
+    </div>
+  );
+}
+
+export default function ProjectCard({
+  project,
+  cardW = 392,
+  cardH = 520,
+  imgH = 220,
+}) {
   const p = project;
-  const [imgError, setImgError] = useState(false);
 
-  const githubLinks = useMemo(() => {
-    if (Array.isArray(p.githubLinks) && p.githubLinks.length > 0) {
-      return p.githubLinks.filter((link) => link?.url);
-    }
+  const githubLinks = Array.isArray(p.githubLinks)
+    ? p.githubLinks
+    : p.githubLink
+      ? [{ label: "GitHub", url: p.githubLink }]
+      : [];
 
-    if (p.githubLink) {
-      return [{ label: "GitHub", url: p.githubLink }];
-    }
-
-    return [];
-  }, [p.githubLinks, p.githubLink]);
-
-  const images = useMemo(() => {
-    const items = [];
-
-    if (p.media?.cover && String(p.media.cover).trim()) {
-      items.push(p.media.cover);
-    }
-
-    if (Array.isArray(p.media?.gallery)) {
-      p.media.gallery.forEach((img) => {
-        if (img && String(img).trim() && !items.includes(img)) {
-          items.push(img);
-        }
-      });
-    }
-
-    return items;
-  }, [p.media]);
-
-  const [selectedImage, setSelectedImage] = useState(images[0] || "");
-
-  useEffect(() => {
-    setSelectedImage(images[0] || "");
-    setImgError(false);
-  }, [images]);
-
-  const primaryGithub = githubLinks[0]?.url || "";
-  const hasMultipleImages = images.length > 1;
+  const hasGithub = githubLinks.length > 0;
 
   return (
     <motion.article
       layout
-      className="group flex h-full w-full flex-col overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-xl"
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.22 }}
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 18 }}
+      transition={{ duration: 0.25 }}
+      className="group flex overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.045] shadow-2xl shadow-black/20 backdrop-blur"
+      style={{
+        width: "100%",
+        maxWidth: cardW,
+        minHeight: cardH,
+      }}
     >
-      <div className="relative overflow-hidden border-b border-white/8">
-        <div className="aspect-video w-full">
-          {selectedImage && !imgError ? (
-            <button
-              type="button"
-              onClick={() => {
-                if (!hasMultipleImages) return;
-                const currentIndex = images.indexOf(selectedImage);
-                const nextIndex = (currentIndex + 1) % images.length;
-                setSelectedImage(images[nextIndex]);
-              }}
-              className="block h-full w-full text-left"
-              title={hasMultipleImages ? "Click to view next screenshot" : ""}
-            >
-              <img
-                src={selectedImage}
-                alt={p.media?.alt || p.title}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-                onError={() => setImgError(true)}
-              />
+      <div className="flex w-full flex-col">
+        <ProjectImage project={p} imgH={imgH} />
 
-              {hasMultipleImages ? (
-                <div className="absolute bottom-3 right-3 rounded-full border border-white/10 bg-black/45 px-3 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
-                  {images.indexOf(selectedImage) + 1} / {images.length}
-                </div>
-              ) : null}
-            </button>
-          ) : (
-            <div className="flex h-full w-full items-center justify-center bg-white/5 text-sm text-white/40">
-              Image placeholder
+        <div className="flex flex-1 flex-col p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-wrap gap-2">
+              {p.type ? <TypeBadge type={p.type} /> : null}
+              {p.featured ? <FeaturedBadge /> : null}
             </div>
-          )}
-        </div>
 
-        {hasMultipleImages && !imgError ? (
-          <div className="flex gap-2 overflow-x-auto border-t border-white/8 bg-black/10 px-3 py-3">
-            {images.map((img, index) => {
-              const active = img === selectedImage;
-
-              return (
-                <button
-                  key={`${p.key || p.title}-thumb-${index}`}
-                  type="button"
-                  onClick={() => {
-                    setImgError(false);
-                    setSelectedImage(img);
-                  }}
-                  className={[
-                    "h-12 w-16 shrink-0 overflow-hidden rounded-lg border transition",
-                    active
-                      ? "border-white/40 ring-1 ring-white/20"
-                      : "border-white/10 hover:border-white/25",
-                  ].join(" ")}
-                  title={`View screenshot ${index + 1}`}
-                >
-                  <img
-                    src={img}
-                    alt={`${p.title} preview ${index + 1}`}
-                    className="h-full w-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.closest("button")?.remove();
-                    }}
-                  />
-                </button>
-              );
-            })}
-          </div>
-        ) : null}
-      </div>
-
-      <div className="flex flex-grow flex-col p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center rounded-full border border-[rgb(var(--accent)/0.35)] bg-[rgb(var(--accent)/0.12)] px-2.5 py-1 text-[11px] font-medium text-white/90">
-              {p.type}
-            </span>
-            {p.featured ? <FeaturedBadge /> : null}
-          </div>
-
-          {primaryGithub ? (
-            <a
-              href={primaryGithub}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Open ${p.title} on GitHub`}
-              className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white"
-            >
-              ↗
-            </a>
-          ) : null}
-        </div>
-
-        <h3 className="mt-4 text-2xl font-semibold tracking-tight text-white">
-          {p.title}
-        </h3>
-
-        {p.tagline ? (
-          <p className="mt-2 text-sm font-medium text-[rgb(var(--mist))]">
-            {p.tagline}
-          </p>
-        ) : null}
-
-        <p className="mt-4 text-sm leading-7 text-white/70">{p.description}</p>
-
-        {p.outcome ? (
-          <div className="mt-4 rounded-2xl border border-white/8 bg-white/4 p-3">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
-              Outcome
-            </div>
-            <p className="mt-2 text-sm leading-7 text-white/72">{p.outcome}</p>
-          </div>
-        ) : null}
-
-        {p.whatIBuilt?.length ? (
-          <div className="mt-4">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/45">
-              What I Built
-            </div>
-            <ul className="mt-2 space-y-2 text-sm leading-7 text-white/70">
-              {p.whatIBuilt.slice(0, 3).map((item) => (
-                <li key={item}>• {item}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-
-        <div className="mt-4 flex flex-wrap gap-2">
-          {p.stack?.map((s) => (
-            <span
-              key={s}
-              className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/72"
-            >
-              {s}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-auto pt-5">
-          <div className="flex flex-wrap gap-2">
-            {githubLinks.map((link, index) => (
-              <LinkButton
-                key={`${link.label}-${link.url}`}
-                href={link.url}
-                primary={index === 0}
+            {hasGithub ? (
+              <a
+                href={githubLinks[0].url}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${p.title} repository`}
+                className="focus-ring inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/75 transition hover:bg-white/10 hover:text-white"
               >
-                {link.label || `GitHub ${index + 1}`}
-              </LinkButton>
-            ))}
+                ↗
+              </a>
+            ) : (
+              <div className="h-10 w-10 shrink-0" />
+            )}
+          </div>
+
+          <h3 className="mt-7 text-2xl font-bold leading-tight tracking-tight text-white">
+            {p.title}
+          </h3>
+
+          {p.tagline ? (
+            <p className="mt-3 text-sm font-semibold leading-6 text-slate-300">
+              {p.tagline}
+            </p>
+          ) : null}
+
+          {p.description ? (
+            <p className="mt-4 line-clamp-4 text-sm leading-7 text-white/68">
+              {p.description}
+            </p>
+          ) : null}
+
+          {p.stack?.length ? (
+            <div className="mt-5 flex flex-wrap gap-2">
+              {p.stack.slice(0, 5).map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-xs font-medium text-white/65"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          ) : null}
+
+          <div className="mt-auto pt-5">
+            {hasGithub ? (
+              <div className="flex flex-wrap gap-2">
+                {githubLinks.slice(0, 2).map((link) => (
+                  <a
+                    key={`${p.key}-${link.url}`}
+                    href={link.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="focus-ring inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/75 transition hover:bg-white/10 hover:text-white"
+                  >
+                    {link.label || "GitHub"} →
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <span className="text-sm font-medium text-white/35">
+                Link coming soon
+              </span>
+            )}
           </div>
         </div>
       </div>
