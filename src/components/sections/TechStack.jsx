@@ -17,37 +17,17 @@ function groupItems(items) {
   return [...ordered, ...rest];
 }
 
-function Logo({ name, logo }) {
-  if (logo) {
-    return (
-      <img
-        src={logo}
-        alt={name}
-        className="h-8 w-8 object-contain"
-        loading="lazy"
-      />
-    );
-  }
-
-  return (
-    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-xs font-semibold text-white/80">
-      {name?.[0]?.toUpperCase() ?? "?"}
-    </div>
-  );
-}
-
 export default function TechStack() {
   const groups = groupItems(
     Array.isArray(technologyStack) ? technologyStack : [],
   );
 
   return (
-    <RevealSection id="tech" className="relative z-10 pt-24 pb-32">
+    <RevealSection id="tech" className="section-shell">
       <Container>
         <div className="mb-10">
-          <h2 className="text-2xl font-semibold tracking-tight">
-            Technology Stack
-          </h2>
+          <p className="eyebrow">My toolkit</p>
+          <h2 className="section-title">Technology Stack</h2>
           <p className="mt-2 text-white/70">
             Tools and technologies I frequently use across projects.
           </p>
@@ -55,17 +35,17 @@ export default function TechStack() {
 
         <div className="space-y-8">
           {groups.map(([groupName, items]) => (
-            <div key={groupName} className="space-y-4">
+            <div key={groupName} className="tech-group">
               <h3 className="text-xl font-semibold text-white">{groupName}</h3>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2">
                 {items.map((tech) => (
                   <a
                     key={tech.name}
                     href={tech.link}
                     target="_blank"
                     rel="noreferrer"
-                    className="card-glass flex items-start gap-4 rounded-3xl p-4 transition hover:-translate-y-1 hover:bg-white/10"
+                    className="tech-card card-glass flex items-start gap-4 rounded-3xl p-4 transition hover:-translate-y-1 hover:bg-white/10"
                     onMouseEnter={(e) => {
                       e.currentTarget.style.borderColor =
                         "rgb(var(--accent) / 0.35)";
@@ -94,7 +74,7 @@ export default function TechStack() {
                         {tech.description}
                       </div>
                       <div className="mt-2 text-sm text-[rgb(var(--mist))]">
-                        Learn more →
+                        Documentation ↗
                       </div>
                     </div>
                   </a>

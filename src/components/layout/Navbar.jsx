@@ -23,12 +23,19 @@ export default function Navbar() {
     setOpen(false);
 
     const top = el.getBoundingClientRect().top + window.scrollY - 84;
-    window.scrollTo({ top, behavior: "smooth" });
+    window.scrollTo({
+      top,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
   };
 
   useEffect(() => {
     const ids = LINKS.map((l) => l.id);
-    const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
     if (!sections.length) return;
 
     let ticking = false;
@@ -75,20 +82,24 @@ export default function Navbar() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
-        <div className="mx-auto w-full max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-[1184px] px-4 pt-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-xl">
             <button
               onClick={() => goTo("home")}
               className="focus-ring text-left text-sm font-semibold tracking-tight text-white/90 transition hover:text-[rgb(var(--mist))] sm:text-base"
             >
-              EY Portfolio
+              EY<span className="text-[rgb(var(--accent))]">.</span>
             </button>
 
-            <nav className="hidden items-center gap-2 md:flex">
+            <nav
+              aria-label="Main navigation"
+              className="hidden items-center gap-2 md:flex"
+            >
               {LINKS.slice(1).map((l) => (
                 <button
                   key={l.id}
                   onClick={() => goTo(l.id)}
+                  aria-current={activeId === l.id ? "location" : undefined}
                   className={[
                     "focus-ring rounded-xl px-4 py-2 text-sm font-medium transition-all",
                     activeId === l.id
@@ -122,6 +133,7 @@ export default function Navbar() {
               onClick={() => setOpen((v) => !v)}
               className="focus-ring inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white md:hidden"
               aria-expanded={open}
+              aria-controls="mobile-navigation"
               aria-label="Toggle mobile menu"
             >
               Menu
@@ -131,9 +143,13 @@ export default function Navbar() {
       </header>
 
       {open ? (
-        <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden" onClick={() => setOpen(false)}>
+        <div
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden"
+          onClick={() => setOpen(false)}
+        >
           <div
-            className="absolute inset-x-4 top-20 rounded-2xl border border-white/10 bg-[#07111a]/95 p-4 shadow-2xl"
+            id="mobile-navigation"
+            className="absolute inset-x-4 top-24 rounded-2xl border border-white/10 bg-[#07111a]/95 p-4 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col gap-2">
@@ -141,6 +157,7 @@ export default function Navbar() {
                 <button
                   key={l.id}
                   onClick={() => goTo(l.id)}
+                  aria-current={activeId === l.id ? "location" : undefined}
                   className={[
                     "focus-ring rounded-xl px-4 py-3 text-left text-sm font-medium transition",
                     activeId === l.id

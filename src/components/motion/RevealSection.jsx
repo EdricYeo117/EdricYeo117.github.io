@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion as Motion, useInView, useReducedMotion } from "framer-motion";
 
 export default function RevealSection({
   id,
   className = "",
   children,
-  amount = 0.2,
+  amount = "some",
   once = true,
 }) {
   const ref = useRef(null);
@@ -13,20 +13,24 @@ export default function RevealSection({
   const inView = useInView(ref, { amount, once });
 
   return (
-    <motion.section
+    <Motion.section
       id={id}
       ref={ref}
       className={className}
-      initial="hide"
+      initial={false}
       animate={inView ? "show" : "hide"}
       variants={{
-        hide: prefersReduced ? { opacity: 1 } : { opacity: 0, y: 18, filter: "blur(6px)" },
+        hide: prefersReduced ? { opacity: 1 } : { opacity: 1, y: 12 },
         show: prefersReduced
           ? { opacity: 1 }
-          : { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: "easeOut" } },
+          : {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, ease: "easeOut" },
+            },
       }}
     >
       {children}
-    </motion.section>
+    </Motion.section>
   );
 }

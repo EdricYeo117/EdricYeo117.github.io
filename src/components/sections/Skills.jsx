@@ -4,15 +4,16 @@ import { skills } from "../../data/skills";
 
 export default function Skills() {
   return (
-    <RevealSection id="skills" className="pt-24">
+    <RevealSection id="skills" className="section-shell">
       <Container>
-        <h2 className="text-2xl font-semibold tracking-tight">Skillsets</h2>
+        <p className="eyebrow">What I bring</p>
+        <h2 className="section-title">Built on a versatile foundation.</h2>
         <p className="mt-2 text-white/70">
           Full-stack developer with experience across multiple languages and
           platforms.
         </p>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((s) => (
             <div
               key={s.title}

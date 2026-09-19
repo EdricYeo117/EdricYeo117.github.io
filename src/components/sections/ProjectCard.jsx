@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 function FeaturedBadge() {
   return (
@@ -26,10 +26,28 @@ function ProjectImage({ project, imgH }) {
   if (!cover || imageFailed) {
     return (
       <div
-        className="w-full border-b border-white/10 bg-white/[0.025]"
+        className="project-placeholder w-full border-b border-white/10"
         style={{ height: imgH }}
         aria-hidden="true"
-      />
+      >
+        <svg
+          viewBox="0 0 100 100"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        >
+          <circle cx="25" cy="25" r="16" />
+          <circle cx="75" cy="25" r="16" />
+          <circle cx="25" cy="75" r="16" />
+          <circle cx="75" cy="75" r="16" />
+          <path d="M25 25 75 75M75 25 25 75" />
+          <rect x="37" y="37" width="26" height="26" rx="8" fill="#142033" />
+          <circle cx="50" cy="50" r="5" />
+        </svg>
+        <span>
+          {project.stack?.slice(0, 3).join(" / ") || "PROJECT OVERVIEW"}
+        </span>
+      </div>
     );
   }
 
@@ -41,7 +59,7 @@ function ProjectImage({ project, imgH }) {
       <img
         src={cover}
         alt={alt}
-        className="h-full w-full object-contain p-2 transition duration-500 group-hover:scale-[1.02]"
+        className="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.02]"
         loading="lazy"
         onError={() => setImageFailed(true)}
       />
@@ -51,7 +69,7 @@ function ProjectImage({ project, imgH }) {
 
 export default function ProjectCard({
   project,
-  cardW = 392,
+
   cardH = 520,
   imgH = 220,
 }) {
@@ -66,16 +84,16 @@ export default function ProjectCard({
   const hasGithub = githubLinks.length > 0;
 
   return (
-    <motion.article
+    <Motion.article
       layout
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 18 }}
       transition={{ duration: 0.25 }}
-      className="group flex overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.045] shadow-2xl shadow-black/20 backdrop-blur"
+      className="project-card group flex overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#121b29]"
       style={{
         width: "100%",
-        maxWidth: cardW,
+        maxWidth: "none",
         minHeight: cardH,
       }}
     >
@@ -104,7 +122,7 @@ export default function ProjectCard({
             )}
           </div>
 
-          <h3 className="mt-7 text-2xl font-bold leading-tight tracking-tight text-white">
+          <h3 className="mt-5 text-xl font-bold leading-tight tracking-tight text-white">
             {p.title}
           </h3>
 
@@ -115,7 +133,7 @@ export default function ProjectCard({
           ) : null}
 
           {p.description ? (
-            <p className="mt-4 line-clamp-4 text-sm leading-7 text-white/68">
+            <p className="mt-4 text-sm leading-7 text-white/68">
               {p.description}
             </p>
           ) : null}
@@ -136,7 +154,7 @@ export default function ProjectCard({
           <div className="mt-auto pt-5">
             {hasGithub ? (
               <div className="flex flex-wrap gap-2">
-                {githubLinks.slice(0, 2).map((link) => (
+                {githubLinks.map((link) => (
                   <a
                     key={`${p.key}-${link.url}`}
                     href={link.url}
@@ -156,6 +174,6 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
-    </motion.article>
+    </Motion.article>
   );
 }

@@ -7,16 +7,16 @@ import Skills from "./components/sections/Skills";
 import TechStack from "./components/sections/TechStack";
 import Contact from "./components/sections/Contact";
 import Container from "./components/layout/Container";
-import useMouseGlow from "./components/layout/useMouseGlow";
 
 export default function App() {
-  useMouseGlow();
-
   return (
-      <div className="min-h-screen text-white relative isolate">
+    <div className="min-h-screen text-white relative isolate">
       <Background />
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Projects />
@@ -27,7 +27,8 @@ export default function App() {
       <footer className="py-8 border-t border-white/10">
         <Container>
           <p className="text-center text-sm text-white/50">
-            © 2024 Edric Yeo. Built with React & Tailwind CSS.
+            © {new Date().getFullYear()} Edric Yeo. Built with React & Tailwind
+            CSS.
           </p>
         </Container>
       </footer>

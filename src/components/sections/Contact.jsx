@@ -3,7 +3,7 @@ import RevealSection from "../motion/RevealSection";
 
 export default function Contact() {
   return (
-    <section id="contact" className="scroll-mt-28 py-20 sm:py-24">
+    <section id="contact" className="section-shell">
       <Container>
         <RevealSection>
           <div className="card-glass rounded-3xl p-6 sm:p-8 lg:p-10">
@@ -12,27 +12,26 @@ export default function Contact() {
             </div>
 
             <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Let’s talk about cloud, AI, full-stack systems, or technical demo work.
+              Let’s build something useful.
             </h2>
 
             <p className="mt-4 max-w-2xl text-sm leading-7 text-white/75 sm:text-base">
-              I am interested in software engineering, cloud engineering, applied AI,
-              and systems integration opportunities. Whether you want to discuss a project,
-              a role, or a collaboration, feel free to reach out.
+              I am interested in software engineering, cloud engineering,
+              applied AI, and systems integration opportunities. Whether you
+              want to discuss a project, a role, or a collaboration, feel free
+              to reach out.
             </p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a href="mailto:your-email@example.com" className="btn-primary text-center">
-                Email Me
-              </a>
               <a
-                href="https://www.linkedin.com/"
+                href="https://www.linkedin.com/in/yeo-jin-rong/"
                 target="_blank"
                 rel="noreferrer"
-                className="btn-secondary text-center"
+                className="btn-primary text-center"
               >
-                LinkedIn
+                Connect on LinkedIn ↗
               </a>
+
               <a
                 href="https://github.com/EdricYeo117"
                 target="_blank"

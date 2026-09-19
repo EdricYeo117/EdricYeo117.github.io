@@ -4,9 +4,11 @@ import RevealSection from "../motion/RevealSection";
 import ProjectCard from "./ProjectCard";
 import { projects as allProjects } from "../../data/projects";
 
-const TYPES = ["All", "School", "Internship", "Personal"];
+const TYPES = [
+  "All",
+  ...new Set(allProjects.map((project) => project.type).filter(Boolean)),
+];
 
-const CARD_W = 392;
 const CARD_H = 520;
 const IMG_H = 220;
 const PAGE_SIZE = 6;
@@ -58,7 +60,7 @@ export default function Projects() {
   };
 
   return (
-    <RevealSection id="projects" className="scroll-mt-24 py-24">
+    <RevealSection id="projects" className="section-shell">
       <Container>
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -67,16 +69,18 @@ export default function Projects() {
                 Selected Work
               </p>
 
-              <h2 className="mt-3 text-4xl font-bold tracking-tight text-white md:text-5xl">
-                Projects
-              </h2>
+              <h2 className="section-title">Projects</h2>
 
               <p className="mt-4 max-w-2xl text-base leading-8 text-white/65">
-                Featured projects are highlighted and shown first.
+                A selection of AI experiences, cloud workflows, and full-stack
+                products.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-sm font-medium text-white/55">
+            <div
+              aria-live="polite"
+              className="flex items-center gap-2 text-sm font-medium text-white/55"
+            >
               <span>
                 {activeType} ({filteredSorted.length})
               </span>
@@ -98,6 +102,7 @@ export default function Projects() {
                 key={type}
                 type="button"
                 onClick={() => handleTypeChange(type)}
+                aria-pressed={type === activeType}
                 className={[
                   "focus-ring rounded-xl border px-4 py-2 text-sm font-medium transition",
                   type === activeType
@@ -110,12 +115,11 @@ export default function Projects() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 justify-items-center gap-6 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {pageItems.map((project) => (
               <ProjectCard
                 key={project.key}
                 project={project}
-                cardW={CARD_W}
                 cardH={CARD_H}
                 imgH={IMG_H}
               />
