@@ -138,6 +138,17 @@ export default function ProjectCard({
             </p>
           ) : null}
 
+          {p.outcome ? (
+            <div className="project-outcome mt-5 rounded-2xl border border-sky-200/10 bg-sky-200/[0.045] p-4">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-sky-200/70">
+                Outcome
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-300">
+                {p.outcome}
+              </p>
+            </div>
+          ) : null}
+
           {p.stack?.length ? (
             <div className="mt-5 flex flex-wrap gap-2">
               {p.stack.slice(0, 5).map((tech) => (

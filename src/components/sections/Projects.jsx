@@ -9,7 +9,7 @@ const TYPES = [
   ...new Set(allProjects.map((project) => project.type).filter(Boolean)),
 ];
 
-const CARD_H = 520;
+const CARD_H = 600;
 const IMG_H = 220;
 const PAGE_SIZE = 6;
 

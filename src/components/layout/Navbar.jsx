@@ -16,21 +16,6 @@ export default function Navbar() {
     [],
   );
 
-  const goTo = (id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    setOpen(false);
-
-    const top = el.getBoundingClientRect().top + window.scrollY - 84;
-    window.scrollTo({
-      top,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
-  };
-
   useEffect(() => {
     const ids = LINKS.map((l) => l.id);
     const sections = ids
@@ -41,7 +26,8 @@ export default function Navbar() {
     let ticking = false;
 
     const updateActiveSection = () => {
-      const scrollPosition = window.scrollY + 140;
+      const viewportOffset = Math.min(window.innerHeight * 0.35, 320);
+      const scrollPosition = window.scrollY + viewportOffset;
       let current = ids[0];
 
       for (const section of sections) {
@@ -79,26 +65,38 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [open]);
+
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="mx-auto w-full max-w-[1184px] px-4 pt-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/35 px-4 py-3 backdrop-blur-xl">
-            <button
-              onClick={() => goTo("home")}
+            <a
+              href="#home"
               className="focus-ring text-left text-sm font-semibold tracking-tight text-white/90 transition hover:text-[rgb(var(--mist))] sm:text-base"
+              aria-label="Edric Yeo — back to top"
             >
               EY<span className="text-[rgb(var(--accent))]">.</span>
-            </button>
+            </a>
 
             <nav
               aria-label="Main navigation"
               className="hidden items-center gap-2 md:flex"
             >
               {LINKS.slice(1).map((l) => (
-                <button
+                <a
                   key={l.id}
-                  onClick={() => goTo(l.id)}
+                  href={`#${l.id}`}
                   aria-current={activeId === l.id ? "location" : undefined}
                   className={[
                     "focus-ring rounded-xl px-4 py-2 text-sm font-medium transition-all",
@@ -116,7 +114,7 @@ export default function Navbar() {
                   }
                 >
                   {l.label}
-                </button>
+                </a>
               ))}
 
               <a
@@ -134,7 +132,7 @@ export default function Navbar() {
               className="focus-ring inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white md:hidden"
               aria-expanded={open}
               aria-controls="mobile-navigation"
-              aria-label="Toggle mobile menu"
+              aria-label={open ? "Close main menu" : "Open main menu"}
             >
               Menu
             </button>
@@ -154,9 +152,10 @@ export default function Navbar() {
           >
             <div className="flex flex-col gap-2">
               {LINKS.slice(1).map((l) => (
-                <button
+                <a
                   key={l.id}
-                  onClick={() => goTo(l.id)}
+                  href={`#${l.id}`}
+                  onClick={() => setOpen(false)}
                   aria-current={activeId === l.id ? "location" : undefined}
                   className={[
                     "focus-ring rounded-xl px-4 py-3 text-left text-sm font-medium transition",
@@ -174,7 +173,7 @@ export default function Navbar() {
                   }
                 >
                   {l.label}
-                </button>
+                </a>
               ))}
 
               <a
