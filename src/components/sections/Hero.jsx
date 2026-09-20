@@ -1,5 +1,8 @@
+import { useEffect, useState } from "react";
 import Container from "../layout/Container";
 import profileImg from "../../assets/profile.jpg";
+
+const NAME = "Edric Yeo";
 
 const focus = [
   [
@@ -19,6 +22,40 @@ const focus = [
   ],
 ];
 export default function Hero() {
+  const [reduceMotion] = useState(() =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  const [typedCount, setTypedCount] = useState(() =>
+    reduceMotion ? NAME.length : 0,
+  );
+  const [showCursor, setShowCursor] = useState(() => !reduceMotion);
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+
+    let count = 0;
+    let typingTimer;
+    let cursorTimer;
+
+    const startTimer = window.setTimeout(() => {
+      typingTimer = window.setInterval(() => {
+        count += 1;
+        setTypedCount(count);
+
+        if (count >= NAME.length) {
+          window.clearInterval(typingTimer);
+          cursorTimer = window.setTimeout(() => setShowCursor(false), 1400);
+        }
+      }, 105);
+    }, 350);
+
+    return () => {
+      window.clearTimeout(startTimer);
+      window.clearInterval(typingTimer);
+      window.clearTimeout(cursorTimer);
+    };
+  }, [reduceMotion]);
+
   return (
     <section id="home" className="hero-section">
       <Container>
@@ -27,8 +64,14 @@ export default function Hero() {
             <p className="eyebrow">
               <span className="status-dot" /> Software engineer · Singapore
             </p>
-            <h1>
-              Edric Yeo<span className="hero-period">.</span>
+            <h1 aria-label="Edric Yeo.">
+              <span aria-hidden="true">
+                {NAME.slice(0, typedCount)}
+                {typedCount === NAME.length ? (
+                  <span className="hero-period">.</span>
+                ) : null}
+                {showCursor ? <span className="type-cursor" /> : null}
+              </span>
             </h1>
             <h2 className="hero-statement">
               From an idea to a<br />

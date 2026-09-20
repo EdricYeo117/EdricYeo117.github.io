@@ -77,9 +77,29 @@ section {
   letter-spacing: -0.065em;
   line-height: 1.12;
   margin: 22px 0 20px;
+  min-height: 1.12em;
 }
 .hero-period {
   color: #a8c7ff;
+}
+.type-cursor {
+  display: inline-block;
+  width: 0.075em;
+  height: 0.82em;
+  margin-left: 0.08em;
+  border-radius: 999px;
+  background: #a8c7ff;
+  animation: cursor-blink 0.75s steps(1, end) infinite;
+}
+@keyframes cursor-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+  49%,
+  100% {
+    opacity: 0;
+  }
 }
 .hero-statement {
   font-size: clamp(28px, 3vw, 40px);
