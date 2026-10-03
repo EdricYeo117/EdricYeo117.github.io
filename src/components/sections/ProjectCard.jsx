@@ -151,7 +151,7 @@ export default function ProjectCard({
 
           {p.stack?.length ? (
             <div className="mt-5 flex flex-wrap gap-2">
-              {p.stack.slice(0, 5).map((tech) => (
+              {p.stack.slice(0, p.stackLimit ?? 5).map((tech) => (
                 <span
                   key={tech}
                   className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-xs font-medium text-white/65"
@@ -177,11 +177,11 @@ export default function ProjectCard({
                   </a>
                 ))}
               </div>
-            ) : (
+            ) : p.linkNote !== "" ? (
               <span className="text-sm font-medium text-white/35">
-                Link coming soon
+                {p.linkNote || "Link coming soon"}
               </span>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

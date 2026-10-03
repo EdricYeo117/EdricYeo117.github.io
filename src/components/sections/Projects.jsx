@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react";
 import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
 import ProjectCard from "./ProjectCard";
-import { projects as allProjects } from "../../data/projects";
+import { projects as allProjects, freelanceProjects } from "../../data/projects";
 
 const TYPES = [
   "All",
@@ -159,6 +159,32 @@ export default function Projects() {
               </button>
             </div>
           ) : null}
+          <section
+            aria-labelledby="freelance-projects-heading"
+            className="mt-6 flex flex-col gap-6 border-t border-white/10 pt-10"
+          >
+            <div>
+              <h3
+                id="freelance-projects-heading"
+                className="text-2xl font-bold tracking-tight text-white"
+              >
+                Freelance Projects
+              </h3>
+              <p className="mt-3 text-base leading-8 text-white/65">
+                A separate selection of my freelance project work.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              {freelanceProjects.map((project) => (
+                <ProjectCard
+                  key={project.key}
+                  project={project}
+                  cardH={420}
+                  imgH={IMG_H}
+                />
+              ))}
+            </div>
+          </section>
         </div>
       </Container>
     </RevealSection>

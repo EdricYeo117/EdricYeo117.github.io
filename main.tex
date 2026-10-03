@@ -1,0 +1,193 @@
+% main.tex — ATS-friendly two-page resume
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage[margin=1.5cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{needspace}
+
+\setlist[itemize]{leftmargin=*, noitemsep, topsep=1pt}
+\setlength{\parskip}{3pt}
+
+\definecolor{ink}{HTML}{111111}
+\definecolor{muted}{HTML}{444444}
+
+\titleformat{\section}{\large\bfseries\color{ink}}{}{0pt}{}[\vspace{-4pt}\hrule\vspace{4pt}]
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+
+\newcommand{\role}[4]{%
+  \textbf{#1} \hfill \textbf{#2}\par
+  \textit{#3} \hfill \textit{#4}\par
+}
+
+\pagestyle{empty}
+\begin{document}
+
+% ===== Header =====
+{\LARGE \textbf{YEO JIN RONG}}\\[-3pt]
+\textcolor{muted}{Computer Science Undergraduate — University of Wollongong (SIM Global Education)}\\[5pt]
+
+\begin{tabularx}{\textwidth}{@{}X r@{}}
+Singapore &
+Phone: 91067051 \\
+\href{mailto:edricyeo.jr@gmail.com}{edricyeo.jr@gmail.com} &
+\href{https://www.linkedin.com/in/yeo-jin-rong/}{linkedin.com/in/yeo-jin-rong} \\
+\href{https://edric-yeo.com/}{edric-yeo.com} &
+\href{https://github.com/EdricYeo117}{github.com/EdricYeo117} \\
+\end{tabularx}
+
+% ===== Summary =====
+\section*{Summary}
+Computer Science undergraduate at the University of Wollongong (SIM Global Education) with a Diploma in Information Technology (Software Engineering). Experienced in full-stack systems, cloud infrastructure, and applied AI through customer-facing technical showcases at Oracle.
+
+% ===== Skills =====
+\section*{Skills}
+\textbf{Languages:} C++, C\#, Python, Java, JavaScript, HTML, CSS, Kotlin \\
+\textbf{Frontend:} React, Tailwind, Bootstrap \\
+\textbf{Backend:} Node.js, Express, FastAPI \\
+\textbf{Databases:} MySQL, SQLite, Microsoft SQL, MongoDB, Firebase, DynamoDB \\
+\textbf{Cloud:} AWS S3, Oracle Object Storage, Oracle Compute, Oracle Autonomous Database \\
+\textbf{Tools:} GitHub, Jira, Figma, Android Studio, VS Code, Visual Studio \\
+\textbf{Other:} TensorFlow, Unreal Engine, DJI Mobile SDK, OpenCV, MediaPipe
+
+% ===== Experience =====
+\section*{Experience}
+
+\role{Cloud Engineering Intern}{2025--2026}{Oracle}{Singapore}
+\begin{itemize}
+  \item Built and operated the Interactive AI Hologram, a customer-facing showcase used in live demonstrations for customer engagements and leadership presentations.
+  \item Supported customer engagements and demonstrations for the F1 Simulator, tailoring system setup and delivery to different audience and business requirements.
+  \item Improved showcase reliability through structured runbooks, readiness validation, rapid fault isolation, and cross-system troubleshooting during live events.
+  \item Collaborated cross-functionally to refine architecture, optimize performance, and incorporate stakeholder feedback into production-ready technical demos.
+  \item Contributed to an AI-enabled drone initiative involving computer vision and remotely callable drone-control workflows for autonomous operation scenarios.
+\end{itemize}
+
+\role{Comms Technician}{2021--2023}{Singapore Armed Forces}{Singapore}
+\begin{itemize}
+  \item Maintained and troubleshot PRC-940A VHF communication systems and embedded network systems deployed on armored vehicle platforms.
+  \item Performed preventive diagnostics, structured fault isolation, and servicing to sustain operational readiness and reduce downtime.
+  \item Managed equipment accountability, logistics, and maintenance logbooks to ensure assets remained properly tracked, serviceable, and deployment-ready.
+\end{itemize}
+
+% ===== Education =====
+\section*{Education}
+
+\textbf{University of Wollongong (SIM Global Education)}
+\hfill
+2026--Present
+\par
+
+Bachelor of Computer Science (Artificial Intelligence and Big Data)
+\par
+
+\textbf{Ngee Ann Polytechnic}
+\hfill
+2023--2026
+\par
+
+Diploma in Information Technology (Software Engineering)
+\hfill
+\textbf{GPA: 3.9875}
+
+% ===== Certifications =====
+\section*{Certifications}
+Professional Scrum Master I \\
+OCI Foundations Associate
+
+% ===== Awards =====
+\section*{Awards}
+\begin{itemize}
+  \item Director’s List (Year 1.1, 1.2, 2.1, 2.2)
+  \item Best in Module: Data Science Fundamentals; Mobile Applications Development; Full Stack Development Project
+  \item Diploma with Merit — Top 10\% of cohort
+\end{itemize}
+
+% ===== Projects =====
+\Needspace{8\baselineskip}
+\section*{Projects}
+
+\textbf{Freelance Projects}
+
+\Needspace{3\baselineskip}
+\textbf{Urbanware 2.0} --- Freelance project
+
+\Needspace{3\baselineskip}
+\textbf{Sales Dojo} --- Freelance project
+
+\textbf{Oracle Projects}
+
+\Needspace{4\baselineskip}
+\textbf{Interactive AI Hologram} --- LLM, RAG, TTS
+\begin{itemize}
+  \item Developed a real-time conversational avatar with speech recognition, LLM response generation, and TTS output.
+  \item Implemented a synchronized animation pipeline for immersive live demos.
+\end{itemize}
+
+\Needspace{5\baselineskip}
+\textbf{AI Drone Surveillance Platform} --- Kotlin, DJI Mobile SDK, FastAPI, OpenCV, MediaPipe
+\begin{itemize}
+  \item Built an Android application in Kotlin for drone operations with pose estimation, fire/smoke detection, background subtraction, and intruder detection.
+  \item Implemented DJI Mobile SDK workflows for backend-triggered commands, remote maneuver execution, and autonomous operation scenarios.
+  \item Developed backend-to-controller integration for event-driven command dispatch, media capture, and real-time drone orchestration.
+\end{itemize}
+
+\Needspace{4\baselineskip}
+\textbf{Agentic ERP Document Ingestion Workflow} --- n8n, Oracle, SQL, React, AI
+\begin{itemize}
+  \item Built a workflow to extract structured fields from ERP documents and map them into downstream data and analytics processes.
+  \item Connected document processing with dashboard and workflow orchestration logic.
+\end{itemize}
+
+\textbf{School Projects}
+
+\Needspace{5\baselineskip}
+\textbf{BannerBites} --- Node.js, DynamoDB, React, Tailwind
+\begin{itemize}
+  \item Built a cloud-based advertisement management platform with grid-based scheduling and layout configuration.
+  \item Developed REST APIs using Node.js and DynamoDB for persistent storage and retrieval.
+  \item Implemented a responsive React frontend with real-time state updates.
+\end{itemize}
+
+\Needspace{5\baselineskip}
+\textbf{PocketChef} --- Java, SQLite, Firebase, TensorFlow
+\begin{itemize}
+  \item Integrated Spoonacular API for recipe generation from pantry inputs.
+  \item Implemented QR scanning, image classification, and voice interaction.
+  \item Designed hybrid local and cloud persistence with SQLite and Firebase.
+\end{itemize}
+
+% ===== Additional =====
+\section*{Additional}
+Languages: English (Professional), Mandarin (Conversational)
+% ===== References =====
+\section*{References}
+
+\textbf{Low Kheng Hian}\\
+Mentor / Lecturer, Ngee Ann Polytechnic\\
+Email: \href{mailto:low_kheng_hian@np.edu.sg}{low\_kheng\_hian@np.edu.sg}\\
+Phone: 9838 8193
+
+\vspace{6pt}
+
+\textbf{Poh Oon Ng}\\
+Deputy Director (Academics), Ngee Ann Polytechnic\\
+Email: \href{mailto:ng_poh_oon@np.edu.sg}{ng\_poh\_oon@np.edu.sg}\\
+Phone: 6460 6903
+
+\vspace{6pt}
+
+\textbf{Yu Ka Chan}\\
+Head of Cloud Engineering (Sri Lanka), Oracle\\
+Email: \href{mailto:yu.ka.chan@oracle.com}{yu.ka.chan@oracle.com}\\
+Phone: 9029 4973
+\end{document}

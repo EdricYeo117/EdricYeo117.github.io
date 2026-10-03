@@ -225,6 +225,51 @@ export const projects = [
   },
 ];
 
+export const freelanceProjects = [
+  {
+    key: "urbanware",
+    title: "Urbanware",
+    tagline: "GovTech QuickBuy@SGov integration for an e-commerce platform",
+    description:
+      "Worked on Urbanware's GovTech QuickBuy@SGov integration for government purchasing. The integration connects checkout, orders, and invoicing through signed APIs and callbacks, WorkPal corporate billing approvals, and PGP/SFTP invoice exports. The wider platform supports HitPay payments and refunds.",
+    stack: [
+      "PHP / Laravel 13",
+      "Vue 3 / Inertia.js",
+      "Tailwind CSS",
+      "C# / ASP.NET Core 9",
+      "MySQL / SQL Server",
+      "Node.js / Express",
+      "QuickBuy / WorkPal",
+      "HitPay",
+      "PGP / SFTP",
+    ],
+    stackLimit: 9,
+    linkNote: "",
+    type: "Freelance",
+    media: { cover: null, alt: "Urbanware project preview" },
+  },
+  {
+    key: "sales-dojo",
+    title: "Sales Dojo",
+    tagline: "AI sales call engine for voice-driven practice and coaching",
+    description:
+      "Primarily updated the AI sales call engine in Sales Dojo, a practice and coaching application for Singapore insurance advisors. The engine powers voice-driven prospect conversations, with the platform supporting in-call coaching and post-call performance reviews through LiveKit voice workers and Google AI.",
+    stack: [
+      "Python / FastAPI",
+      "LiveKit Agents",
+      "Google AI / Gemini",
+      "Deepgram",
+      "Supabase",
+      "Next.js / React",
+      "TypeScript",
+    ],
+    stackLimit: 7,
+    linkNote: "",
+    type: "Freelance",
+    media: { cover: null, alt: "Sales Dojo project preview" },
+  },
+];
+
 export const pinnedProjects = projects
   .filter((p) => p.featured)
   .sort((a, b) => (a.priority ?? 999) - (b.priority ?? 999));
