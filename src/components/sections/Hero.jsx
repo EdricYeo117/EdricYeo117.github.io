@@ -25,7 +25,7 @@ export default function Hero() {
         <div className="hero-grid">
           <div>
             <p className="eyebrow">
-              <span className="status-dot" /> Software engineer · Singapore
+              <span className="status-dot" /> Cloud & infrastructure engineer · Singapore
             </p>
             <h1>Edric Yeo<span className="hero-period">.</span></h1>
             <h2 className="hero-statement">

@@ -30,7 +30,7 @@ try {
 
     try {
         $graphics.FillEllipse($accent, 82, 95, 11, 11)
-        $graphics.DrawString('SOFTWARE ENGINEER  ·  SINGAPORE', $eyebrow, $accent, 108, 82)
+        $graphics.DrawString('CLOUD & INFRASTRUCTURE ENGINEER', $eyebrow, $accent, 108, 82)
         $graphics.DrawString('Edric Yeo.', $title, $white, 70, 168)
         $graphics.DrawString('From an idea to a', $subtitle, $white, 76, 305)
         $graphics.DrawString('working system.', $subtitle, $accent, 76, 350)
