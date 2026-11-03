@@ -3,7 +3,13 @@ import RevealSection from "../motion/RevealSection";
 import { technologyStack } from "../../data/technologyStack";
 
 function groupItems(items) {
-  const order = ["Frontend", "Backend", "Databases", "Cloud & Tools"];
+  const order = [
+    "Languages",
+    "Web Standards",
+    "Frameworks & Libraries",
+    "Databases",
+    "Platforms & Tools",
+  ];
   const map = new Map();
 
   for (const it of items) {
