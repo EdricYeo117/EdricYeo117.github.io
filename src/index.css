@@ -283,6 +283,35 @@ section {
   background: #121b29;
   border-radius: 16px;
 }
+.experience-section {
+  background: #ffffff02;
+  border-block: 1px solid #ffffff0d;
+}
+.experience-list {
+  border-top: 1px solid #ffffff18;
+}
+.experience-item {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.35fr) 1fr;
+  gap: 40px;
+  padding: 30px 0;
+  border-bottom: 1px solid #ffffff18;
+}
+.experience-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.experience-period {
+  color: #a8c7ff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.experience-company {
+  color: #aab7ca;
+  font-size: 14px;
+}
 #projects {
   background: #ffffff02;
   border-block: 1px solid #ffffff0d;
@@ -370,6 +399,11 @@ section {
   }
 }
 @media (max-width: 767px) {
+  .experience-item {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 26px 0;
+  }
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 36px;

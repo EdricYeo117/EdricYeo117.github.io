@@ -2,6 +2,7 @@ import Background from "./components/layout/Background";
 import Navbar from "./components/layout/Navbar";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
+import Experience from "./components/sections/Experience";
 import Projects from "./components/sections/Projects";
 import Skills from "./components/sections/Skills";
 import TechStack from "./components/sections/TechStack";
@@ -19,6 +20,7 @@ export default function App() {
       <main id="main-content">
         <Hero />
         <About />
+        <Experience />
         <Projects />
         <Skills />
         <TechStack />
