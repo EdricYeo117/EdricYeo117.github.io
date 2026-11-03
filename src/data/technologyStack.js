@@ -1,6 +1,6 @@
 import ReactLogo from "../assets/react.png";
 import NodejsLogo from "../assets/nodejs.png";
-import ExpressLogo from "../assets/express.png";
+import ExpressLogo from "../assets/logos/express.svg";
 import MongodbLogo from "../assets/mongodb.png";
 import SqlLogo from "../assets/sql.png";
 import PythonLogo from "../assets/python.png";
