@@ -2,25 +2,45 @@ import Container from "../layout/Container";
 import RevealSection from "../motion/RevealSection";
 import { technologyStack } from "../../data/technologyStack";
 
-function groupItems(items) {
-  const order = [
-    "Languages",
-    "Web Standards",
-    "Frameworks & Libraries",
-    "Databases",
-    "Platforms & Tools",
-  ];
-  const map = new Map();
+const frontendNames = new Set([
+  "HTML", "CSS", "JavaScript", "TypeScript", "React", "Vue 3",
+  "Inertia.js", "Next.js", "Tailwind CSS",
+]);
 
-  for (const it of items) {
-    const key = it.group || "Other";
-    if (!map.has(key)) map.set(key, []);
-    map.get(key).push(it);
+function sectionFor(tech) {
+  if (frontendNames.has(tech.name)) return "Frontend";
+  if (tech.group === "Databases" || tech.name === "SQL") return "Databases";
+  if (tech.group === "Platforms & Tools" && tech.name !== "Node.js") {
+    return "Cloud & Tools";
+  }
+  return "Backend";
+}
+
+function subgroupFor(section, tech) {
+  if (section === "Frontend") {
+    return tech.group === "Frameworks & Libraries"
+      ? "Frameworks & Libraries"
+      : "Languages & Web Standards";
+  }
+  if (section === "Backend") {
+    return tech.group === "Languages" ? "Languages" : "Frameworks & Runtimes";
+  }
+  return null;
+}
+
+function groupItems(items) {
+  const order = ["Frontend", "Backend", "Databases", "Cloud & Tools"];
+  const groups = new Map(order.map((name) => [name, new Map()]));
+
+  for (const tech of items) {
+    const section = sectionFor(tech);
+    const subgroup = subgroupFor(section, tech);
+    const entries = groups.get(section);
+    if (!entries.has(subgroup)) entries.set(subgroup, []);
+    entries.get(subgroup).push(tech);
   }
 
-  const ordered = order.filter((k) => map.has(k)).map((k) => [k, map.get(k)]);
-  const rest = Array.from(map.entries()).filter(([k]) => !order.includes(k));
-  return [...ordered, ...rest];
+  return order.map((name) => [name, [...groups.get(name).entries()]]);
 }
 
 export default function TechStack() {
@@ -40,12 +60,20 @@ export default function TechStack() {
         </div>
 
         <div className="space-y-8">
-          {groups.map(([groupName, items]) => (
+          {groups.map(([groupName, subgroups]) => (
             <div key={groupName} className="tech-group">
               <h3 className="text-xl font-semibold text-white">{groupName}</h3>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-2">
-                {items.map((tech) => (
+              <div className="space-y-7">
+                {subgroups.map(([subgroupName, items]) => (
+                  <div key={subgroupName || groupName}>
+                    {subgroupName ? (
+                      <h4 className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-sky-200/70">
+                        {subgroupName}
+                      </h4>
+                    ) : null}
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      {items.map((tech) => (
                   <a
                     key={tech.name}
                     href={tech.link}
@@ -88,6 +116,9 @@ export default function TechStack() {
                       </div>
                     </div>
                   </a>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
