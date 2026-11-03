@@ -229,16 +229,15 @@ export const freelanceProjects = [
   {
     key: "urbanware",
     title: "Urbanware",
-    tagline: "Full-stack e-commerce development and Azure migration",
+    tagline: "Full-stack e-commerce development and Microsoft Azure migration",
     description:
-      "Worked across Urbanware's Vue and Laravel frontend and backend, from customer-facing flows and APIs to database migration, Azure SQL, and deployment. Contributed to the GovTech QuickBuy@SGov purchasing integration, connecting checkout, orders, and invoicing through signed APIs and callbacks, WorkPal approvals, and PGP/SFTP invoice exports.",
+      "Worked across Urbanware's Vue and Laravel frontend and backend, from customer-facing flows and APIs to database migration, Azure SQL Database, and Microsoft Azure deployment. Contributed to the GovTech QuickBuy@SGov purchasing integration, connecting checkout, orders, and invoicing through signed APIs and callbacks, WorkPal approvals, and PGP/SFTP invoice exports.",
     stack: [
       "PHP / Laravel 13",
       "Vue 3 / Inertia.js",
       "Tailwind CSS",
-      "C# / ASP.NET Core 9",
-      "MySQL / SQL Server",
-      "Azure SQL / Deployment",
+      "MySQL",
+      "Microsoft Azure / Azure SQL",
       "Node.js / Express",
       "QuickBuy / WorkPal",
       "HitPay",
@@ -252,9 +251,9 @@ export const freelanceProjects = [
   {
     key: "sales-dojo",
     title: "Sales Dojo",
-    tagline: "AI sales coaching and Azure platform migration",
+    tagline: "AI sales coaching and Microsoft Azure platform migration",
     description:
-      "Updated Sales Dojo's AI sales call engine for voice-driven practice and coaching for insurance advisors, using LiveKit voice workers and Google AI. Also worked on migrating the application from its Vercel, Supabase, and Railway setup to Azure.",
+      "Updated Sales Dojo's AI sales call engine for voice-driven practice and coaching for insurance advisors, using LiveKit voice workers and Google AI. Also worked on migrating the application from its Vercel, Supabase, and Railway setup to Microsoft Azure.",
     stack: [
       "Python / FastAPI",
       "LiveKit Agents",
@@ -263,7 +262,7 @@ export const freelanceProjects = [
       "Supabase",
       "Next.js / React",
       "TypeScript",
-      "Azure",
+      "Microsoft Azure",
       "Vercel",
       "Railway",
     ],

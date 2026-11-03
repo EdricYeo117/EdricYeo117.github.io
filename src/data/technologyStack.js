@@ -26,9 +26,8 @@ import InertiaLogo from "../assets/logos/inertiajs.svg";
 import NextLogo from "../assets/logos/nextjs.svg";
 import PhpLogo from "../assets/logos/php.svg";
 import LaravelLogo from "../assets/logos/laravel.svg";
-import DotNetLogo from "../assets/logos/dotnetcore.svg";
-import SqlServerLogo from "../assets/logos/microsoftsqlserver.svg";
 import MySqlLogo from "../assets/logos/mysql.svg";
+import PostgreSqlLogo from "../assets/logos/postgresql.svg";
 import SupabaseLogo from "../assets/logos/supabase.svg";
 import AzureLogo from "../assets/logos/azure.svg";
 
@@ -49,22 +48,21 @@ export const technologyStack = [
   { name: "FastAPI", group: "Backend", description: "Python framework for high-performance APIs and service orchestration.", logo: FastAPILogo, link: "https://fastapi.tiangolo.com/" },
   { name: "PHP", group: "Backend", description: "Server-side language used for Urbanware development.", logo: PhpLogo, link: "https://www.php.net/docs.php" },
   { name: "Laravel", group: "Backend", description: "PHP framework used for Urbanware's application and integrations.", logo: LaravelLogo, link: "https://laravel.com/docs" },
-  { name: "ASP.NET Core", group: "Backend", description: "C# framework used for web APIs and service integrations.", logo: DotNetLogo, link: "https://learn.microsoft.com/en-us/aspnet/core/" },
   { name: "Java", group: "Backend", description: "Object-oriented language used in enterprise systems and applied AI integrations.", logo: JavaLogo, link: "https://docs.oracle.com/en/java/" },
   { name: "Kotlin", group: "Backend", description: "Modern JVM language used for Android and hardware-linked application development.", logo: KotlinLogo, link: "https://kotlinlang.org/docs/home.html" },
   { name: "C#", group: "Backend", description: "Language used for OOP-based systems and structured application logic.", logo: CSharpLogo, link: "https://learn.microsoft.com/en-us/dotnet/csharp/" },
   { name: "C++", group: "Backend", description: "General-purpose systems programming language with strong performance foundations.", logo: CPlusPlusLogo, link: "https://cplusplus.com/doc/tutorial/" },
 
   { name: "SQL", group: "Databases", description: "Relational query language used across structured database systems.", logo: SqlLogo, link: "https://dev.mysql.com/doc/" },
-  { name: "SQL Server / Azure SQL", group: "Databases", description: "Relational data platform used with Urbanware and Azure deployment workflows.", logo: SqlServerLogo, link: "https://learn.microsoft.com/en-us/azure/azure-sql/" },
   { name: "MySQL", group: "Databases", description: "Relational database used in web application development.", logo: MySqlLogo, link: "https://dev.mysql.com/doc/" },
+  { name: "PostgreSQL", group: "Databases", description: "Relational database behind Supabase-backed application data.", logo: PostgreSqlLogo, link: "https://www.postgresql.org/docs/" },
   { name: "Supabase", group: "Databases", description: "Postgres-backed application platform used in CloseBuddy and Sales Dojo.", logo: SupabaseLogo, link: "https://supabase.com/docs" },
   { name: "MongoDB", group: "Databases", description: "Document-oriented NoSQL database for flexible application data models.", logo: MongodbLogo, link: "https://www.mongodb.com/docs/" },
   { name: "DynamoDB", group: "Databases", description: "Managed NoSQL database for scalable key-value and document storage.", logo: DynamoDBLogo, link: "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html" },
   { name: "Firebase", group: "Databases", description: "Backend platform used for app data, authentication, and rapid prototyping workflows.", logo: FirebaseLogo, link: "https://firebase.google.com/docs" },
 
   { name: "AWS", group: "Cloud & Tools", description: "Cloud platform used for storage, backend integrations, and scalable system components.", logo: AwsLogo, link: "https://docs.aws.amazon.com/" },
-  { name: "Microsoft Azure", group: "Cloud & Tools", description: "Cloud deployment and managed SQL platform used in Urbanware workflows.", logo: AzureLogo, link: "https://learn.microsoft.com/en-us/azure/" },
+  { name: "Microsoft Azure", group: "Cloud & Tools", description: "Cloud deployment and Azure SQL Database used in Urbanware and Sales Dojo migrations.", logo: AzureLogo, link: "https://learn.microsoft.com/en-us/azure/" },
   { name: "Oracle Cloud", group: "Cloud & Tools", description: "Cloud platform used for enterprise demos, database-connected systems, and AI-enabled workflows.", logo: OracleLogo, link: "https://docs.oracle.com/en-us/iaas/" },
   { name: "Android Studio", group: "Cloud & Tools", description: "Primary IDE for Android application development and testing.", logo: AndroidStudioLogo, link: "https://developer.android.com/studio" },
   { name: "GitHub", group: "Cloud & Tools", description: "Version control and collaboration platform for source code and project delivery.", logo: GithubLogo, link: "https://docs.github.com/" },

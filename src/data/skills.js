@@ -16,21 +16,21 @@ export const skills = [
   {
     title: "Backend & API Development",
     description:
-      "Develop backend services, REST APIs, and integrations using Node.js, Express, Python, FastAPI, PHP, Laravel, and ASP.NET Core.",
+      "Develop backend services, REST APIs, and integrations using Node.js, Express, Python, FastAPI, PHP, and Laravel.",
     image: BackEnd,
     alt: "Backend and API Development",
   },
   {
     title: "Databases & Data Systems",
     description:
-      "Work across SQL Server, Azure SQL, MySQL, Supabase, MongoDB, DynamoDB, Firebase, and Oracle Autonomous Database.",
+      "Work across MySQL, PostgreSQL, Supabase, MongoDB, DynamoDB, Firebase, and Oracle Autonomous Database.",
     image: Database,
     alt: "Databases and Data Systems",
   },
   {
     title: "Cloud & Applied AI Systems",
     description:
-      "Build cloud-connected systems and applied AI workflows spanning Azure deployment, Oracle Cloud, AWS, and enterprise-facing showcases.",
+      "Build cloud-connected systems and applied AI workflows spanning Microsoft Azure deployment, Oracle Cloud, AWS, and enterprise-facing showcases.",
     image: CloudAI,
     alt: "Cloud and Applied AI Systems",
   },

@@ -15,8 +15,8 @@ export const experience = [
     summary:
       "Developing full-stack applications, backend APIs, and cloud deployments across Urbanware and Sales Dojo.",
     highlights: [
-      "Worked from frontend and backend delivery through database migration, Azure SQL, and deployment for Urbanware.",
-      "Updated Sales Dojo's AI call engine and supported its migration from Vercel, Supabase, and Railway to Azure.",
+      "Worked from frontend and backend delivery through database migration, Azure SQL Database, and Microsoft Azure deployment for Urbanware.",
+      "Updated Sales Dojo's AI call engine and supported its migration from Vercel, Supabase, and Railway to Microsoft Azure.",
     ],
   },
   {
