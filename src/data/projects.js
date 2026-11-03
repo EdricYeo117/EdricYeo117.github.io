@@ -6,6 +6,7 @@ import pocketChefCover from "../assets/projects/pocketchef/Pocketchef_logo.svg";
 import nutriaidHome from "../assets/projects/nutriaid-backend/Homepage.png";
 import nutriaidEdit from "../assets/projects/nutriaid-backend/RecipePageEdit.png";
 import nutriaidRecipe from "../assets/projects/nutriaid-backend/RecipePage.png";
+import urbanwareCover from "../assets/projects/urbanware/homepage.jpg";
 
 export const projects = [
   {
@@ -246,7 +247,10 @@ export const freelanceProjects = [
     stackLimit: 10,
     linkNote: "",
     type: "Freelance",
-    media: { cover: null, alt: "Urbanware project preview" },
+    media: {
+      cover: urbanwareCover,
+      alt: "UrbanWare homepage showing its hardware storefront",
+    },
   },
   {
     key: "sales-dojo",
