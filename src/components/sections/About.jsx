@@ -15,9 +15,10 @@ export default function About() {
           </div>
           <div className="about-copy">
             <p>
-              I’m a Software Engineering student from Ngee Ann Polytechnic with
-              cloud engineering internship experience at Oracle. My work brings
-              together applied AI, backend integration, and user-facing product
+              I’m a Computer Science undergraduate at the University of
+              Wollongong (SIM Global Education) with a Software Engineering
+              diploma from Ngee Ann Polytechnic. My work brings together
+              applied AI, backend integration, and user-facing product
               development.
             </p>
             <p>
@@ -28,11 +29,11 @@ export default function About() {
             <div className="about-facts">
               <div>
                 <span>EXPERIENCE</span>
-                <strong>Oracle · Cloud Engineering</strong>
+                <strong>Goh Ventures · Freelance Developer</strong>
               </div>
               <div>
                 <span>EDUCATION</span>
-                <strong>Ngee Ann Polytechnic</strong>
+                <strong>University of Wollongong (SIM)</strong>
               </div>
             </div>
           </div>

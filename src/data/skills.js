@@ -9,28 +9,28 @@ export const skills = [
   {
     title: "Frontend Engineering",
     description:
-      "Build responsive user interfaces with React, JavaScript, HTML, CSS, and Tailwind CSS, with a focus on polished presentation and user experience.",
+      "Build responsive interfaces with React, Next.js, Vue 3, Inertia.js, TypeScript, JavaScript, and Tailwind CSS.",
     image: FrontEnd,
     alt: "Frontend Engineering",
   },
   {
     title: "Backend & API Development",
     description:
-      "Develop backend services, REST APIs, orchestration flows, and system integrations using Node.js, Express, Python, and FastAPI.",
+      "Develop backend services, REST APIs, and integrations using Node.js, Express, Python, FastAPI, PHP, Laravel, and ASP.NET Core.",
     image: BackEnd,
     alt: "Backend and API Development",
   },
   {
     title: "Databases & Data Systems",
     description:
-      "Work across relational and NoSQL data platforms including SQL, MongoDB, DynamoDB, Firebase, and Oracle Autonomous Database.",
+      "Work across SQL Server, Azure SQL, MySQL, Supabase, MongoDB, DynamoDB, Firebase, and Oracle Autonomous Database.",
     image: Database,
     alt: "Databases and Data Systems",
   },
   {
     title: "Cloud & Applied AI Systems",
     description:
-      "Build cloud-connected systems and applied AI workflows spanning Oracle Cloud, AWS, automation pipelines, and enterprise-facing showcase solutions.",
+      "Build cloud-connected systems and applied AI workflows spanning Azure deployment, Oracle Cloud, AWS, and enterprise-facing showcases.",
     image: CloudAI,
     alt: "Cloud and Applied AI Systems",
   },

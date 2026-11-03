@@ -27,7 +27,11 @@ export default function Skills() {
               {s.image ? (
                 <img
                   src={s.image}
-                  alt={s.alt || s.title}
+                  alt=""
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                  decoding="async"
                   className="mb-4 h-12 w-12 object-contain"
                 />
               ) : null}

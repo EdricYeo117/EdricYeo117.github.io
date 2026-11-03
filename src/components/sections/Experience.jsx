@@ -21,6 +21,7 @@ export default function Experience() {
               <div className="experience-meta">
                 <span className="experience-period">{item.period}</span>
                 <span className="experience-company">{item.company}</span>
+                {item.upcoming ? <span className="experience-upcoming">Upcoming</span> : null}
               </div>
               <div>
                 <h3 className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
@@ -29,11 +30,13 @@ export default function Experience() {
                 <p className="mt-3 max-w-3xl text-sm leading-7 text-white/70 sm:text-base">
                   {item.summary}
                 </p>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-white/55 marker:text-sky-200/70">
-                  {item.highlights.map((highlight) => (
-                    <li key={highlight}>{highlight}</li>
-                  ))}
-                </ul>
+                {item.highlights.length > 0 ? (
+                  <ul className="mt-4 list-disc space-y-2 pl-5 text-sm leading-7 text-white/55 marker:text-sky-200/70">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             </article>
           ))}

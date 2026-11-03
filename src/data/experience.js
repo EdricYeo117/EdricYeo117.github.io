@@ -1,5 +1,14 @@
 export const experience = [
   {
+    role: "Engineer, Digital Resilience Fusion",
+    company: "NCS Group",
+    period: "From 4 Jan 2027",
+    upcoming: true,
+    summary:
+      "Joining NCS Group in the January 2027 intake of its Digital Resilience Fusion programme.",
+    highlights: [],
+  },
+  {
     role: "Freelance Developer",
     company: "Goh Ventures",
     period: "Apr 2026 – Present",

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion as Motion } from "framer-motion";
 
 function FeaturedBadge() {
   return (
@@ -61,6 +60,7 @@ function ProjectImage({ project, imgH }) {
         alt={alt}
         className="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.02]"
         loading="lazy"
+        decoding="async"
         onError={() => setImageFailed(true)}
       />
     </div>
@@ -84,12 +84,7 @@ export default function ProjectCard({
   const hasGithub = githubLinks.length > 0;
 
   return (
-    <Motion.article
-      layout
-      initial={{ opacity: 0, y: 18 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 18 }}
-      transition={{ duration: 0.25 }}
+    <article
       className="project-card group flex overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#121b29]"
       style={{
         width: "100%",
@@ -185,6 +180,6 @@ export default function ProjectCard({
           </div>
         </div>
       </div>
-    </Motion.article>
+    </article>
   );
 }

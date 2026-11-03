@@ -58,7 +58,11 @@ export default function TechStack() {
                       {tech.logo ? (
                         <img
                           src={tech.logo}
-                          alt={tech.name}
+                          alt=""
+                          width="32"
+                          height="32"
+                          loading="lazy"
+                          decoding="async"
                           className="h-8 w-8 object-contain"
                         />
                       ) : (
