@@ -229,9 +229,9 @@ export const freelanceProjects = [
   {
     key: "urbanware",
     title: "Urbanware",
-    tagline: "GovTech QuickBuy@SGov integration for an e-commerce platform",
+    tagline: "Full-stack e-commerce development and Azure migration",
     description:
-      "Worked on Urbanware's GovTech QuickBuy@SGov integration for government purchasing. The integration connects checkout, orders, and invoicing through signed APIs and callbacks, WorkPal corporate billing approvals, and PGP/SFTP invoice exports. The wider platform supports HitPay payments and refunds.",
+      "Worked across Urbanware's Vue and Laravel frontend and backend, from customer-facing flows and APIs to database migration, Azure SQL, and deployment. Contributed to the GovTech QuickBuy@SGov purchasing integration, connecting checkout, orders, and invoicing through signed APIs and callbacks, WorkPal approvals, and PGP/SFTP invoice exports.",
     stack: [
       "PHP / Laravel 13",
       "Vue 3 / Inertia.js",
@@ -252,9 +252,9 @@ export const freelanceProjects = [
   {
     key: "sales-dojo",
     title: "Sales Dojo",
-    tagline: "AI sales call engine for voice-driven practice and coaching",
+    tagline: "AI sales coaching and Azure platform migration",
     description:
-      "Primarily updated the AI sales call engine in Sales Dojo, a practice and coaching application for Singapore insurance advisors. The engine powers voice-driven prospect conversations, with the platform supporting in-call coaching and post-call performance reviews through LiveKit voice workers and Google AI.",
+      "Updated Sales Dojo's AI sales call engine for voice-driven practice and coaching for insurance advisors, using LiveKit voice workers and Google AI. Also worked on migrating the application from its Vercel, Supabase, and Railway setup to Azure.",
     stack: [
       "Python / FastAPI",
       "LiveKit Agents",
@@ -263,8 +263,11 @@ export const freelanceProjects = [
       "Supabase",
       "Next.js / React",
       "TypeScript",
+      "Azure",
+      "Vercel",
+      "Railway",
     ],
-    stackLimit: 7,
+    stackLimit: 10,
     linkNote: "",
     type: "Freelance",
     media: { cover: null, alt: "Sales Dojo project preview" },

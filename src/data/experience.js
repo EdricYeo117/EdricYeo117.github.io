@@ -13,10 +13,10 @@ export const experience = [
     company: "Goh Ventures",
     period: "Apr 2026 – Present",
     summary:
-      "Developing cloud architecture and backend APIs across client projects, including Urbanware 2.0 and Sales Dojo.",
+      "Developing full-stack applications, backend APIs, and cloud deployments across Urbanware and Sales Dojo.",
     highlights: [
-      "Support service integrations, application workflows, and technical delivery.",
-      "Build across e-commerce and AI-powered sales coaching products.",
+      "Worked from frontend and backend delivery through database migration, Azure SQL, and deployment for Urbanware.",
+      "Updated Sales Dojo's AI call engine and supported its migration from Vercel, Supabase, and Railway to Azure.",
     ],
   },
   {
